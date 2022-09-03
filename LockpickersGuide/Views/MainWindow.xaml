@@ -1,0 +1,23 @@
+﻿<Window x:Class="LockpickersGuide.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LockpickersGuide"
+        xmlns:vm="clr-namespace:LockpickersGuide.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
+    <!--<Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>-->
+    <Border CornerRadius="20" Background="Black" BorderBrush="DimGray" BorderThickness="2">
+        <Grid>
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="600" Height="32" Margin="10,57,0,0" Orientation="Horizontal">
+                <Label FontSize="12pt" Foreground="LightGray" Content="Make:"/>
+                <ComboBox Width="193" Height="21" ItemsSource="{Binding Path=Brands}" DisplayMemberPath="Name" />
+            </StackPanel>
+            <Label Content="Lockpicker Guide" HorizontalAlignment="Left" VerticalAlignment="Top" Width="210" FontSize="18pt" Foreground="LightGray" FontStyle="Normal" FontWeight="Bold" Margin="10,10,0,0"/>
+            <DataGrid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,193,0,0" Height="243" Width="776"/>
+        </Grid>
+    </Border>
+</Window>

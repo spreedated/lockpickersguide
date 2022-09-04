@@ -1,0 +1,23 @@
+﻿using System.Collections.Generic;
+using LockpickersGuide.Models;
+using Serilog;
+
+namespace LockpickersGuide.Datastructure
+{
+    internal class HashSetLockpicker<T> : HashSet<T>
+    {
+        public HashSetLockpicker() : base()
+        {
+
+        }
+
+        public new bool Add(T item)
+        {
+            if (item is IModelItem it)
+            {
+                Log.Information($"[HashSetLockpicker][Add] Item named \"{it.Name}\" added");
+            }
+            return base.Add(item);
+        }
+    }
+}

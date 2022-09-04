@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
 using static LockpickersGuide.Logic.Constants;
+using Serilog;
 
 namespace LockpickersGuide.Logic
 {
@@ -25,13 +26,17 @@ namespace LockpickersGuide.Logic
                     {
                         while (dr.Read())
                         {
-                            yield return new Brand()
+                            Brand b = new()
                             {
                                 DatabaseId = dr.GetInt32(0),
                                 Name = dr.GetString(1),
                                 Country = GetCountry(dr.GetInt32(2)),
                                 Established = dr.GetInt32(3),
                             };
+
+                            Cache.Brands.Add(b);
+
+                            yield return b;
                         }
                     }
                 }
@@ -42,6 +47,14 @@ namespace LockpickersGuide.Logic
 
         public static Country GetCountry(int id)
         {
+            if (Cache.Countries.Any(x => x.DatabaseId == id))
+            {
+                Log.Information($"[Database][GetCountry] Cache hit \"{id}\"");
+                return Cache.Countries.First(x => x.DatabaseId == id);
+            }
+
+            Log.Information($"[Database][GetCountry] Cache miss \"{id}\"");
+
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
             {
                 conn.Open();
@@ -54,7 +67,7 @@ namespace LockpickersGuide.Logic
                     {
                         dr.Read();
 
-                        return new Country()
+                        Country c = new()
                         {
                             DatabaseId = dr.GetInt32(0),
                             Iso = dr.GetString(1),
@@ -62,10 +75,12 @@ namespace LockpickersGuide.Logic
                             Name = dr.GetString(2),
                             Nicename = dr.GetString(3)
                         };
+
+                        Cache.Countries.Add(c);
+
+                        return Cache.Countries.First(x => x.DatabaseId == id);
                     }
                 }
-
-                conn.Close();
             }
         }
     }

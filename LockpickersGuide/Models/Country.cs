@@ -1,7 +1,7 @@
 ﻿
 namespace LockpickersGuide.Models
 {
-    public class Country
+    public class Country : IModelItem
     {
         public int DatabaseId { get; set; }
         public string Iso { get; set; }

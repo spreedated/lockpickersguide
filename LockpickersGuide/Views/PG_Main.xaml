@@ -5,15 +5,26 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LockpickersGuide.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1200"
       Title="PG_Main">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="600" Margin="10,57,0,0" Orientation="Horizontal">
-                <Label Content="Make:" Margin="0,0,20,0"/>
-                <ComboBox Width="193" ItemsSource="{Binding Path=Brands}" DisplayMemberPath="Name" />
+        <Label Content="Lockpicker Guide" HorizontalAlignment="Left" VerticalAlignment="Top" Width="210" FontSize="18pt" Foreground="LightGray" FontStyle="Normal" FontWeight="Bold" Margin="10,10,0,0"/>
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="0,60,0,0" CornerRadius="10" Background="#111111" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
+            <StackPanel>
+                <Button MaxWidth="120" Content="Brands" Margin="0,10,0,10"/>
+                <Button MaxWidth="120" Content="Cores" Margin="0,0,0,10" IsEnabled="False"/>
+                <Button MaxWidth="120" Content="Countries" Margin="0,0,0,10" IsEnabled="False"/>
+                <Button MaxWidth="120" Content="Locktypes" Margin="0,0,0,10" IsEnabled="False"/>
+                <Button MaxWidth="160" Content="Lock Collection" Margin="0,0,0,10" IsEnabled="False"/>
             </StackPanel>
-            <Label Content="Lockpicker Guide" HorizontalAlignment="Left" VerticalAlignment="Top" Width="210" FontSize="18pt" Foreground="LightGray" FontStyle="Normal" FontWeight="Bold" Margin="10,10,0,0"/>
-            <DataGrid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,193,0,0" Height="243" Width="776"/>
+        </Border>
+        <Frame x:Name="MainFrame" Margin="200,60,10,10"/>
+
+        <!--<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" Margin="400,57,0,0" Orientation="Horizontal">
+            <Label Content="Make:" Margin="0,0,20,0"/>
+            <ComboBox Width="193" ItemsSource="{Binding Path=Brands}" DisplayMemberPath="Name" />
+        </StackPanel>
+        <DataGrid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,193,0,0" Height="243" Width="320"/>-->
     </Grid>
 </Page>

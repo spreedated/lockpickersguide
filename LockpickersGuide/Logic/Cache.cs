@@ -12,5 +12,7 @@ namespace LockpickersGuide.Logic
     {
         internal readonly static HashSetLockpicker<Country> Countries = new();
         internal readonly static HashSetLockpicker<Brand> Brands = new();
+        internal readonly static HashSetLockpicker<Locktype> Locktypes = new();
+        internal readonly static HashSetLockpicker<Core> Cores = new();
     }
 }

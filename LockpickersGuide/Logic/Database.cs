@@ -12,6 +12,68 @@ namespace LockpickersGuide.Logic
 {
     internal static partial class Database
     {
+        public static IEnumerable<Locktype> GetLocktypes()
+        {
+            using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
+            {
+                conn.Open();
+
+                using (NpgsqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_LOCKTYPES};";
+
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Locktype l = new()
+                            {
+                                DatabaseId = dr.GetInt32(0),
+                                Name = dr.GetString(1)
+                            };
+
+                            Cache.Locktypes.Add(l);
+
+                            yield return l;
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
+        public static IEnumerable<Core> GetCores()
+        {
+            using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
+            {
+                conn.Open();
+
+                using (NpgsqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_CORES};";
+
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Core c = new()
+                            {
+                                DatabaseId = dr.GetInt32(0),
+                                Name = dr.GetString(1)
+                            };
+
+                            Cache.Cores.Add(c);
+
+                            yield return c;
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
         public static IEnumerable<Brand> GetBrands()
         {
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
@@ -20,7 +82,7 @@ namespace LockpickersGuide.Logic
 
                 using (NpgsqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_BRANDS};";
+                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_BRANDS} ORDER BY name ASC;";
 
                     using (NpgsqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -31,12 +93,50 @@ namespace LockpickersGuide.Logic
                                 DatabaseId = dr.GetInt32(0),
                                 Name = dr.GetString(1),
                                 Country = GetCountry(dr.GetInt32(2)),
-                                Established = dr.GetInt32(3),
+                                Founded = dr.IsDBNull(3) ? null : dr.GetInt32(3),
+                                City = dr.IsDBNull(4) ? null : dr.GetString(4),
+                                Website = dr.IsDBNull(5) ? null : dr.GetString(5),
+                                AltName = dr.IsDBNull(6) ? null : dr.GetString(6),
+                                Description = dr.IsDBNull(7) ? null : dr.GetString(7)
                             };
 
                             Cache.Brands.Add(b);
 
                             yield return b;
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
+        public static IEnumerable<Country> GetCountries()
+        {
+            using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
+            {
+                conn.Open();
+
+                using (NpgsqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_COUNTRIES};";
+
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Country c = new()
+                            {
+                                DatabaseId = dr.GetInt32(0),
+                                Iso = dr.GetString(1),
+                                Iso3 = dr.IsDBNull(4) ? null : dr.GetString(4),
+                                Name = dr.GetString(2),
+                                Nicename = dr.GetString(3)
+                            };
+
+                            Cache.Countries.Add(c);
+
+                            yield return c;
                         }
                     }
                 }

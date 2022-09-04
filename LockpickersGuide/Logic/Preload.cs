@@ -25,7 +25,16 @@ namespace LockpickersGuide.Logic
             }
             PreloadStep?.Invoke(null, EventArgs.Empty);
 
+            LoadCountries();
+            PreloadStep?.Invoke(null, EventArgs.Empty);
+
             LoadBrands();
+            PreloadStep?.Invoke(null, EventArgs.Empty);
+
+            LoadCores();
+            PreloadStep?.Invoke(null, EventArgs.Empty);
+
+            LoadLocktypes();
             PreloadStep?.Invoke(null, EventArgs.Empty);
 
             PreloadComplete?.Invoke(null, EventArgs.Empty);
@@ -38,6 +47,33 @@ namespace LockpickersGuide.Logic
             foreach (Brand brand in GetBrands().OrderBy(x => x.Name))
             {
                 Cache.Brands.Add(brand);
+            }
+        }
+
+        private static void LoadCores()
+        {
+            Cache.Cores.Add(new Core());
+            foreach (Core c in GetCores().OrderBy(x => x.Name))
+            {
+                Cache.Cores.Add(c);
+            }
+        }
+
+        private static void LoadLocktypes()
+        {
+            Cache.Locktypes.Add(new Locktype());
+            foreach (Locktype l in GetLocktypes().OrderBy(x => x.Name))
+            {
+                Cache.Locktypes.Add(l);
+            }
+        }
+
+        private static void LoadCountries()
+        {
+            Cache.Countries.Add(new Country());
+            foreach (Country c in GetCountries().OrderBy(x => x.Name))
+            {
+                Cache.Countries.Add(c);
             }
         }
     }

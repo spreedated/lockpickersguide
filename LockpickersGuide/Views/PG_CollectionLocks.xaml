@@ -6,16 +6,16 @@
       xmlns:local="clr-namespace:LockpickersGuide.Views"
       xmlns:Models="clr-namespace:LockpickersGuide.Models" x:Class="LockpickersGuide.Views.PG_CollectionLocks"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="1200"
+      d:DesignHeight="600" d:DesignWidth="1200" d:DataContext="{d:DesignInstance local:PG_CollectionLocks}"
       Title="PG_Main">
 
     <Grid>
         <StackPanel Width="auto" Orientation="Horizontal" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0">
-            <Label Content="Make:" Margin="0,0,20,0"/>
-            <ComboBox Width="193" ItemsSource="{Binding Brands}" DisplayMemberPath="Name" SelectionChanged="CMB_Brands_SelectionChanged" />
+            <Label Content="Brand:" Margin="0,0,20,0"/>
+            <ComboBox Width="193" ItemsSource="{Binding Brands}" DisplayMemberPath="Name" Foreground="WhiteSmoke" SelectionChanged="CMB_Brands_SelectionChanged" />
         </StackPanel>
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,36,0,0">
-            <DataGrid x:Name="DGV_Main" Height="420" Width="965"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True"  />
+        <Grid Width="auto" Margin="0,36,0,32" d:LayoutOverrides="Height" >
+            <DataGrid x:Name="DGV_Main" Height="auto" Width="auto"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" />
         </Grid>
         <Label x:Name="LBL_Rowcount" Width="auto" Height="32" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom"/>
     </Grid>

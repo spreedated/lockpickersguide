@@ -43,7 +43,6 @@ namespace LockpickersGuide.Logic
 
         private static void LoadBrands()
         {
-            Cache.Brands.Add(new Brand());
             foreach (Brand brand in GetBrands().OrderBy(x => x.Name))
             {
                 Cache.Brands.Add(brand);
@@ -52,7 +51,6 @@ namespace LockpickersGuide.Logic
 
         private static void LoadCores()
         {
-            Cache.Cores.Add(new Core());
             foreach (Core c in GetCores().OrderBy(x => x.Name))
             {
                 Cache.Cores.Add(c);
@@ -61,7 +59,6 @@ namespace LockpickersGuide.Logic
 
         private static void LoadLocktypes()
         {
-            Cache.Locktypes.Add(new Locktype());
             foreach (Locktype l in GetLocktypes().OrderBy(x => x.Name))
             {
                 Cache.Locktypes.Add(l);
@@ -70,7 +67,6 @@ namespace LockpickersGuide.Logic
 
         private static void LoadCountries()
         {
-            Cache.Countries.Add(new Country());
             foreach (Country c in GetCountries().OrderBy(x => x.Name))
             {
                 Cache.Countries.Add(c);

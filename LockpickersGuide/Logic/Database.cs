@@ -12,6 +12,84 @@ namespace LockpickersGuide.Logic
 {
     internal static partial class Database
     {
+        public static IEnumerable<CollectionLocks> GetCollectionLocks()
+        {
+            using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
+            {
+                conn.Open();
+
+                using (NpgsqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_COLLECTION}.{DB_TABLE_LOCKS} ORDER BY id ASC;";
+
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            CollectionLocks l = new()
+                            {
+                                DatabaseId = dr.GetString(0),
+                                Type = GetLocktype(dr.GetInt32(1)),
+                                Brand = GetBrand(dr.GetInt32(2)),
+                                Modelname = dr.IsDBNull(3) ? null : dr.GetString(3),
+                                Model = dr.IsDBNull(4) ? null : dr.GetString(4),
+                                BindingOrder = dr.IsDBNull(5) ? null : dr.GetString(5),
+                                Picked = dr.GetBoolean(6),
+                                Core = GetCore(dr.GetInt32(7)),
+                                Description = dr.IsDBNull(8) ? null : dr.GetString(8),
+                                Keycount = dr.GetInt32(9),
+                                Price = dr.GetInt32(10),
+                                Ownership = dr.GetBoolean(11),
+                                Guttable = dr.GetBoolean(12)
+                            };
+
+                            //Cache..Add(l);
+
+                            yield return l;
+                        }
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
+        public static Locktype GetLocktype(int id)
+        {
+            if (Cache.Locktypes.Any(x => x.DatabaseId == id))
+            {
+                Log.Information($"[Database][GetLocktype] Cache hit \"{id}\"");
+                return Cache.Locktypes.First(x => x.DatabaseId == id);
+            }
+
+            Log.Information($"[Database][GetLocktype] Cache miss \"{id}\"");
+
+            using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
+            {
+                conn.Open();
+
+                using (NpgsqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_LOCKTYPES} WHERE id = {id} LIMIT 1;";
+
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+
+                        Locktype c = new()
+                        {
+                            DatabaseId = dr.GetInt32(0),
+                            Name = dr.GetString(1)
+                        };
+
+                        Cache.Locktypes.Add(c);
+
+                        return Cache.Locktypes.First(x => x.DatabaseId == id);
+                    }
+                }
+            }
+        }
+
         public static IEnumerable<Locktype> GetLocktypes()
         {
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
@@ -43,6 +121,42 @@ namespace LockpickersGuide.Logic
             }
         }
 
+        public static Core GetCore(int id)
+        {
+            if (Cache.Cores.Any(x => x.DatabaseId == id))
+            {
+                Log.Information($"[Database][GetCore] Cache hit \"{id}\"");
+                return Cache.Cores.First(x => x.DatabaseId == id);
+            }
+
+            Log.Information($"[Database][GetCore] Cache miss \"{id}\"");
+
+            using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
+            {
+                conn.Open();
+
+                using (NpgsqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_BRANDS} WHERE id = {id} LIMIT 1;";
+
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+
+                        Core c = new()
+                        {
+                            DatabaseId = dr.GetInt32(0),
+                            Name = dr.GetString(1)
+                        };
+
+                        Cache.Cores.Add(c);
+
+                        return Cache.Cores.First(x => x.DatabaseId == id);
+                    }
+                }
+            }
+        }
+
         public static IEnumerable<Core> GetCores()
         {
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
@@ -71,6 +185,48 @@ namespace LockpickersGuide.Logic
                 }
 
                 conn.Close();
+            }
+        }
+
+        public static Brand GetBrand(int id)
+        {
+            if (Cache.Brands.Any(x => x.DatabaseId == id))
+            {
+                Log.Information($"[Database][GetBrand] Cache hit \"{id}\"");
+                return Cache.Brands.First(x => x.DatabaseId == id);
+            }
+
+            Log.Information($"[Database][GetBrand] Cache miss \"{id}\"");
+
+            using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
+            {
+                conn.Open();
+
+                using (NpgsqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_BRANDS} WHERE id = {id} LIMIT 1;";
+
+                    using (NpgsqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+
+                        Brand c = new()
+                        {
+                            DatabaseId = dr.GetInt32(0),
+                            Name = dr.GetString(1),
+                            Country = GetCountry(dr.GetInt32(2)),
+                            Founded = dr.IsDBNull(3) ? null : dr.GetInt32(3),
+                            City = dr.IsDBNull(4) ? null : dr.GetString(4),
+                            Website = dr.IsDBNull(5) ? null : dr.GetString(5),
+                            AltName = dr.IsDBNull(6) ? null : dr.GetString(6),
+                            Description = dr.IsDBNull(7) ? null : dr.GetString(7)
+                        };
+
+                        Cache.Brands.Add(c);
+
+                        return Cache.Brands.First(x => x.DatabaseId == id);
+                    }
+                }
             }
         }
 

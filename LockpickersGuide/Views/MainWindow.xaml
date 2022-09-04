@@ -6,15 +6,13 @@
         xmlns:local="clr-namespace:LockpickersGuide"
         xmlns:vm="clr-namespace:LockpickersGuide.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+        Title="MainWindow" Height="600" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
     <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>-->
     <Border CornerRadius="20" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
         <Grid>
-            <Frame x:Name="FRM_Main" Source="Preload.xaml" Width="auto" Height="auto" Margin="10,10,10,10" NavigationUIVisibility="Hidden">
-
-            </Frame>
+            <Frame x:Name="FRM_Main" Source="Preload.xaml" Width="auto" Height="auto" Margin="10,10,10,10" NavigationUIVisibility="Hidden" />
         </Grid>
     </Border>
 </Window>

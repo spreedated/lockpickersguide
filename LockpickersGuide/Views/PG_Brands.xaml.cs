@@ -24,22 +24,23 @@ namespace LockpickersGuide.Views
     /// <summary>
     /// Interaction logic for PG_Main.xaml
     /// </summary>
-    public partial class PG_Main : Page
+    public partial class PG_Brands : Page
     {
-        public PG_Main()
+        public HashSetLockpicker<Brand> Brands { get; internal set; }
+        public PG_Brands()
         {
             InitializeComponent();
             this.DataContext = this;
+
+            Brands = Cache.Brands;
+
+            OnPropertyChanged(nameof(Brands));
         }
 
-        private void BTN_Brand_Click(object sender, RoutedEventArgs e)
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
-            this.MainFrame.Navigate(new Uri("Views\\PG_Brands.xaml", UriKind.Relative));
-        }
-
-        private void BTN_CollectionLocks_Click(object sender, RoutedEventArgs e)
-        {
-            this.MainFrame.Navigate(new Uri("Views\\PG_CollectionLocks.xaml", UriKind.Relative));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

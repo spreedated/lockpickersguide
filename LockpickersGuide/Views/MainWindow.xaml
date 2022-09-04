@@ -6,18 +6,15 @@
         xmlns:local="clr-namespace:LockpickersGuide"
         xmlns:vm="clr-namespace:LockpickersGuide.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown">
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
     <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>-->
-    <Border CornerRadius="20" Background="Black" BorderBrush="DimGray" BorderThickness="2">
+    <Border CornerRadius="20" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
         <Grid>
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="600" Height="32" Margin="10,57,0,0" Orientation="Horizontal">
-                <Label FontSize="12pt" Foreground="LightGray" Content="Make:"/>
-                <ComboBox Width="193" Height="21" ItemsSource="{Binding Path=Brands}" DisplayMemberPath="Name" />
-            </StackPanel>
-            <Label Content="Lockpicker Guide" HorizontalAlignment="Left" VerticalAlignment="Top" Width="210" FontSize="18pt" Foreground="LightGray" FontStyle="Normal" FontWeight="Bold" Margin="10,10,0,0"/>
-            <DataGrid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,193,0,0" Height="243" Width="776"/>
+            <Frame x:Name="FRM_Main" Source="Preload.xaml" Width="auto" Height="auto" Margin="10,10,10,10" NavigationUIVisibility="Hidden">
+
+            </Frame>
         </Grid>
     </Border>
 </Window>

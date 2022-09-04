@@ -4,7 +4,7 @@ using Serilog;
 
 namespace LockpickersGuide.Datastructure
 {
-    internal class HashSetLockpicker<T> : HashSet<T>
+    public class HashSetLockpicker<T> : HashSet<T>
     {
         public HashSetLockpicker() : base()
         {

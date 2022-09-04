@@ -16,7 +16,7 @@ namespace LockpickersGuide.Logic
 
         private static readonly string optionsFilepath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "options.json");
 
-        internal static void StartUp()
+        internal static void Initialize()
         {
             if (File.Exists(optionsFilepath))
             {
@@ -47,23 +47,15 @@ namespace LockpickersGuide.Logic
 
         internal static void Save()
         {
-            Models.Options k = new();
+            //string json = JsonConvert.SerializeObject(k, Formatting.Indented);
 
-            k.DatabaseCredentials.Host = "178.254.37.60";
-            k.DatabaseCredentials.Port = 5444;
-            k.DatabaseCredentials.Database = "lockpicking";
-            k.DatabaseCredentials.Username = "lockpicker";
-            k.DatabaseCredentials.Password = "lockpicker";
-
-            string json = JsonConvert.SerializeObject(k, Formatting.Indented);
-
-            using (FileStream s = File.Create(optionsFilepath))
-            {
-                using (StreamWriter w = new(s))
-                {
-                    w.Write(json);
-                }
-            }
+            //using (FileStream s = File.Create(optionsFilepath))
+            //{
+            //    using (StreamWriter w = new(s))
+            //    {
+            //        w.Write(json);
+            //    }
+            //}
         }
 
         internal static void CreateBlank()

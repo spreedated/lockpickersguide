@@ -1,4 +1,5 @@
-﻿using LockpickersGuide.Logic;
+﻿using LockpickersGuide.Datastructure;
+using LockpickersGuide.Logic;
 using LockpickersGuide.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,29 +19,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LockpickersGuide
+namespace LockpickersGuide.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PG_Main.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PG_Main : Page
     {
-        public MainWindow()
+        public HashSetLockpicker<Brand> Brands { get; internal set; }
+        public PG_Main()
         {
             InitializeComponent();
             this.DataContext = this;
 
-            Preload.PreloadComplete += (o,e) => { this.Dispatcher.Invoke(async ()=> { await Task.Delay(1500); FRM_Main.Navigate(new Uri("Views\\PG_Main.xaml", UriKind.Relative)); }); };
+            Brands = Cache.Brands;
+
+            OnPropertyChanged(nameof(Brands));
         }
 
-        internal void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                ((Window)sender).DragMove();
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
-        
     }
 }

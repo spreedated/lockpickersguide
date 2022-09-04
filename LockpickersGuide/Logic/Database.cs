@@ -10,7 +10,7 @@ using Serilog;
 
 namespace LockpickersGuide.Logic
 {
-    internal static class Database
+    internal static partial class Database
     {
         public static IEnumerable<Brand> GetBrands()
         {

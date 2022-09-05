@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using static LockpickersGuide.Logic.Variables;
 
 namespace LockpickersGuide.Logic
 {
@@ -14,11 +15,9 @@ namespace LockpickersGuide.Logic
     {
         internal static Models.Options Instance { get; private set; } = null;
 
-        private static readonly string optionsFilepath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "options.json");
-
         internal static void Initialize()
         {
-            if (File.Exists(optionsFilepath))
+            if (File.Exists(OptionsFilepath))
             {
                 Load();
                 return;
@@ -31,7 +30,7 @@ namespace LockpickersGuide.Logic
         {
             StringBuilder json = new();
 
-            using (FileStream s = File.Open(optionsFilepath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream s = File.Open(OptionsFilepath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 using (StreamReader w = new(s))
                 {
@@ -47,22 +46,22 @@ namespace LockpickersGuide.Logic
 
         internal static void Save()
         {
-            //string json = JsonConvert.SerializeObject(k, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(Instance, Formatting.Indented);
 
-            //using (FileStream s = File.Create(optionsFilepath))
-            //{
-            //    using (StreamWriter w = new(s))
-            //    {
-            //        w.Write(json);
-            //    }
-            //}
+            using (FileStream s = File.Create(Variables.OptionsFilepath))
+            {
+                using (StreamWriter w = new(s))
+                {
+                    w.Write(json);
+                }
+            }
         }
 
         internal static void CreateBlank()
         {
             string json = JsonConvert.SerializeObject(new Models.Options(), Formatting.Indented);
 
-            using (FileStream s = File.Create(optionsFilepath))
+            using (FileStream s = File.Create(OptionsFilepath))
             {
                 using (StreamWriter w = new(s))
                 {

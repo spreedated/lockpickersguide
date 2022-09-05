@@ -34,12 +34,10 @@ namespace UnitTests
         [Test]
         public void LoadTest()
         {
-            Assert.That(File.Exists(optionsFile), Is.False);
-
-            Options.CreateBlank();
-
             Assert.Multiple(() =>
             {
+                Assert.That(File.Exists(optionsFile), Is.False);
+                Assert.DoesNotThrow(() => { Options.CreateBlank(); });
                 Assert.That(File.Exists(optionsFile), Is.True);
                 Assert.That(Options.Instance, Is.EqualTo(default(LockpickersGuide.Models.Options)));
                 Assert.DoesNotThrow(() => { Options.Load(); });
@@ -50,13 +48,10 @@ namespace UnitTests
         [Test]
         public void SaveTest()
         {
-            Assert.That(File.Exists(optionsFile), Is.False);
-
-            Options.CreateBlank();
-
             Assert.Multiple(() =>
             {
-                Assert.DoesNotThrow(() => { Options.Load(); });
+                Assert.That(File.Exists(optionsFile), Is.False);
+                Assert.DoesNotThrow(() => { Options.CreateBlank(); Options.Load(); });
             });
 
             Options.Instance.DatabaseCredentials.Host = "testhost";
@@ -72,6 +67,18 @@ namespace UnitTests
                 Assert.DoesNotThrow(() => { result = this.VerifyOptionJsonParsable(); });
                 Assert.That(result.DatabaseCredentials.Host, Is.EqualTo("testhost"));
                 Assert.That(result.DatabaseCredentials.Password, Is.EqualTo("verySecure"));
+            });
+        }
+
+        [Test]
+        public void InitializeTest()
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(Options.Instance, Is.EqualTo(default(LockpickersGuide.Models.Options)));
+                Assert.That(File.Exists(optionsFile), Is.False);
+                Assert.DoesNotThrow(() => { Options.Initialize(); });
+                Assert.That(File.Exists(optionsFile), Is.True);
             });
         }
 

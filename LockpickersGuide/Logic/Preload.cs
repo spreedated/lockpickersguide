@@ -13,6 +13,7 @@ using System.Configuration;
 using Serilog;
 using LockpickersGuide.EventArgs;
 using System.Diagnostics;
+using System.Windows.Documents;
 
 namespace LockpickersGuide.Logic
 {
@@ -37,16 +38,16 @@ namespace LockpickersGuide.Logic
             }
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
-            LoadCountries();
+            FillObjectStorage<Country>(ref ObjectStorage.Countries, () => GetCountries(), CACHE_COUNTRIES);
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
-            LoadBrands();
+            FillObjectStorage<Brand>(ref ObjectStorage.Brands, () => GetBrands(), CACHE_BRANDS);
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
-            LoadCores();
+            FillObjectStorage<Core>(ref ObjectStorage.Cores, () => GetCores(), CACHE_CORES);
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
-            LoadLocktypes();
+            FillObjectStorage<Locktype>(ref ObjectStorage.Locktypes, () => GetLocktypes(), CACHE_LOCKTYPES);
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
             s.Stop();
@@ -60,61 +61,37 @@ namespace LockpickersGuide.Logic
             Log.Information($"[Preload] Completed in \"{e.Duration:mm\\:ss\\:ffffff}\"");
         }
 
-        private static void LoadBrands()
-        {
-            foreach (Brand brand in GetBrands().OrderBy(x => x.Name))
-            {
-                ObjectStorage.Brands.Add(brand);
-            }
-        }
-
-        private static void LoadCores()
-        {
-            foreach (Core c in GetCores().OrderBy(x => x.Name))
-            {
-                ObjectStorage.Cores.Add(c);
-            }
-        }
-
-        private static void LoadLocktypes()
-        {
-            foreach (Locktype l in GetLocktypes().OrderBy(x => x.Name))
-            {
-                ObjectStorage.Locktypes.Add(l);
-            }
-        }
-
-        private static void LoadCountries()
+        private static void FillObjectStorage<T>(ref HashSetLockpicker<T> hs, Func<IEnumerable<T>> p, string cachekey) where T : IModelItem
         {
             if (Cache.IsAvailable)
             {
                 var cache = RedisConnectorHelper.Connection.GetDatabase();
-                string json = cache.StringGet(CACHE_COUNTRIES).ToString();
+                string json = cache.StringGet(cachekey).ToString();
 
                 if (json != null && json.Length > 0)
                 {
-                    Log.Debug("[Preload][LoadCountries] Cache hit");
-                    ObjectStorage.Countries = JsonConvert.DeserializeObject<HashSetLockpicker<Country>>(json);
+                    Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Cache hit");
+                    hs = JsonConvert.DeserializeObject<HashSetLockpicker<T>>(json);
 
                     return;
                 }
             }
 
-            Log.Debug("[Preload][LoadCountries] Cache miss");
+            Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Cache miss");
 
-            foreach (Country c in GetCountries().OrderBy(x => x.Name))
+            foreach (T c in p().OrderBy(x => x.Name))
             {
-                ObjectStorage.Countries.Add(c);
+                hs.Add(c);
             }
 
-            string jsonn = JsonConvert.SerializeObject(ObjectStorage.Countries, Formatting.Indented);
-            if (RedisConnectorHelper.Connection.GetDatabase().StringSet(CACHE_COUNTRIES, jsonn, expiry: new TimeSpan(12,0,0)))
+            string jsonn = JsonConvert.SerializeObject(hs, Formatting.Indented);
+            if (RedisConnectorHelper.Connection.GetDatabase().StringSet(cachekey, jsonn, expiry: new TimeSpan(12, 0, 0)))
             {
-                Log.Debug("[Preload][LoadCountries] Cache warmed successfully");
+                Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Cache warmed successfully");
             }
             else
             {
-                Log.Warning("[Preload][LoadCountries] Cache warming failure");
+                Log.Warning($"[Preload][FillObjectStorage<{typeof(T).Name}>] Cache warming failure");
             }
         }
     }

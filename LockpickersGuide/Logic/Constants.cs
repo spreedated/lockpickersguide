@@ -10,5 +10,9 @@
         public const string DB_TABLE_COUNTRIES = "countries";
         public const string DB_TABLE_LOCKTYPES = "locktypes";
         public const string DB_TABLE_LOCKS = "locks";
+        public const string CACHE_COUNTRIES = "LockpickersGuide-Countries";
+        public const string CACHE_BRANDS = "LockpickersGuide-Brands";
+        public const string CACHE_LOCKTYPES = "LockpickersGuide-Locktypes";
+        public const string CACHE_CORES = "LockpickersGuide-Cores";
     }
 }

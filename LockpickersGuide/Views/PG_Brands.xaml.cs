@@ -32,7 +32,7 @@ namespace LockpickersGuide.Views
             InitializeComponent();
             this.DataContext = this;
 
-            Brands = Cache.Brands;
+            Brands = ObjectStorage.Brands;
 
             OnPropertyChanged(nameof(Brands));
         }

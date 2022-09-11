@@ -15,7 +15,7 @@ namespace LockpickersGuide.Datastructure
         {
             if (item is IModelItem it)
             {
-                Log.Information($"[HashSetLockpicker][Add] Item named \"{it.Name}\" added");
+                Log.Verbose($"[HashSetLockpicker][Add] Item named \"{it.Name}\" added");
             }
             return base.Add(item);
         }

@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using LockpickersGuide.Models;
+using Newtonsoft.Json;
 using System.IO;
+using System.Net;
 using System.Text;
 using static LockpickersGuide.Logic.Variables;
 
@@ -7,7 +9,7 @@ namespace LockpickersGuide.Logic
 {
     internal static class Options
     {
-        internal static Models.Options Instance { get; private set; } = null;
+        internal static Models.Options Instance { get; set; } = null;
 
         internal static void Initialize()
         {

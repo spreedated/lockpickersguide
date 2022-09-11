@@ -56,13 +56,13 @@ namespace LockpickersGuide.Logic
 
         public static Locktype GetLocktype(int id)
         {
-            if (Cache.Locktypes.Any(x => x.DatabaseId == id))
+            if (ObjectStorage.Locktypes.Any(x => x.DatabaseId == id))
             {
-                Log.Information($"[Database][GetLocktype] Cache hit \"{id}\"");
-                return Cache.Locktypes.First(x => x.DatabaseId == id);
+                Log.Debug($"[Database][GetLocktype] ObjectStorage hit \"{id}\"");
+                return ObjectStorage.Locktypes.First(x => x.DatabaseId == id);
             }
 
-            Log.Information($"[Database][GetLocktype] Cache miss \"{id}\"");
+            Log.Debug($"[Database][GetLocktype] ObjectStorage miss \"{id}\"");
 
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
             {
@@ -82,9 +82,9 @@ namespace LockpickersGuide.Logic
                             Name = dr.GetString(1)
                         };
 
-                        Cache.Locktypes.Add(c);
+                        ObjectStorage.Locktypes.Add(c);
 
-                        return Cache.Locktypes.First(x => x.DatabaseId == id);
+                        return ObjectStorage.Locktypes.First(x => x.DatabaseId == id);
                     }
                 }
             }
@@ -110,7 +110,7 @@ namespace LockpickersGuide.Logic
                                 Name = dr.GetString(1)
                             };
 
-                            Cache.Locktypes.Add(l);
+                            ObjectStorage.Locktypes.Add(l);
 
                             yield return l;
                         }
@@ -123,13 +123,13 @@ namespace LockpickersGuide.Logic
 
         public static Core GetCore(int id)
         {
-            if (Cache.Cores.Any(x => x.DatabaseId == id))
+            if (ObjectStorage.Cores.Any(x => x.DatabaseId == id))
             {
-                Log.Information($"[Database][GetCore] Cache hit \"{id}\"");
-                return Cache.Cores.First(x => x.DatabaseId == id);
+                Log.Debug($"[Database][GetCore] ObjectStorage hit \"{id}\"");
+                return ObjectStorage.Cores.First(x => x.DatabaseId == id);
             }
 
-            Log.Information($"[Database][GetCore] Cache miss \"{id}\"");
+            Log.Debug($"[Database][GetCore] ObjectStorage miss \"{id}\"");
 
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
             {
@@ -149,9 +149,9 @@ namespace LockpickersGuide.Logic
                             Name = dr.GetString(1)
                         };
 
-                        Cache.Cores.Add(c);
+                        ObjectStorage.Cores.Add(c);
 
-                        return Cache.Cores.First(x => x.DatabaseId == id);
+                        return ObjectStorage.Cores.First(x => x.DatabaseId == id);
                     }
                 }
             }
@@ -177,7 +177,7 @@ namespace LockpickersGuide.Logic
                                 Name = dr.GetString(1)
                             };
 
-                            Cache.Cores.Add(c);
+                            ObjectStorage.Cores.Add(c);
 
                             yield return c;
                         }
@@ -190,13 +190,13 @@ namespace LockpickersGuide.Logic
 
         public static Brand GetBrand(int id)
         {
-            if (Cache.Brands.Any(x => x.DatabaseId == id))
+            if (ObjectStorage.Brands.Any(x => x.DatabaseId == id))
             {
-                Log.Information($"[Database][GetBrand] Cache hit \"{id}\"");
-                return Cache.Brands.First(x => x.DatabaseId == id);
+                Log.Debug($"[Database][GetBrand] ObjectStorage hit \"{id}\"");
+                return ObjectStorage.Brands.First(x => x.DatabaseId == id);
             }
 
-            Log.Information($"[Database][GetBrand] Cache miss \"{id}\"");
+            Log.Debug($"[Database][GetBrand] ObjectStorage miss \"{id}\"");
 
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
             {
@@ -222,9 +222,9 @@ namespace LockpickersGuide.Logic
                             Description = dr.IsDBNull(7) ? null : dr.GetString(7)
                         };
 
-                        Cache.Brands.Add(c);
+                        ObjectStorage.Brands.Add(c);
 
-                        return Cache.Brands.First(x => x.DatabaseId == id);
+                        return ObjectStorage.Brands.First(x => x.DatabaseId == id);
                     }
                 }
             }
@@ -256,7 +256,7 @@ namespace LockpickersGuide.Logic
                                 Description = dr.IsDBNull(7) ? null : dr.GetString(7)
                             };
 
-                            Cache.Brands.Add(b);
+                            ObjectStorage.Brands.Add(b);
 
                             yield return b;
                         }
@@ -290,7 +290,7 @@ namespace LockpickersGuide.Logic
                                 Nicename = dr.GetString(3)
                             };
 
-                            Cache.Countries.Add(c);
+                            ObjectStorage.Countries.Add(c);
 
                             yield return c;
                         }
@@ -303,13 +303,13 @@ namespace LockpickersGuide.Logic
 
         public static Country GetCountry(int id)
         {
-            if (Cache.Countries.Any(x => x.DatabaseId == id))
+            if (ObjectStorage.Countries.Any(x => x.DatabaseId == id))
             {
-                Log.Information($"[Database][GetCountry] Cache hit \"{id}\"");
-                return Cache.Countries.First(x => x.DatabaseId == id);
+                Log.Debug($"[Database][GetCountry] ObjectStorage hit \"{id}\"");
+                return ObjectStorage.Countries.First(x => x.DatabaseId == id);
             }
 
-            Log.Information($"[Database][GetCountry] Cache miss \"{id}\"");
+            Log.Debug($"[Database][GetCountry] ObjectStorage miss \"{id}\"");
 
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
             {
@@ -332,9 +332,9 @@ namespace LockpickersGuide.Logic
                             Nicename = dr.GetString(3)
                         };
 
-                        Cache.Countries.Add(c);
+                        ObjectStorage.Countries.Add(c);
 
-                        return Cache.Countries.First(x => x.DatabaseId == id);
+                        return ObjectStorage.Countries.First(x => x.DatabaseId == id);
                     }
                 }
             }

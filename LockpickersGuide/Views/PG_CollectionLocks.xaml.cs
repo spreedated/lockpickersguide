@@ -34,7 +34,7 @@ namespace LockpickersGuide.Views
             InitializeComponent();
             this.DataContext = this;
 
-            Brands = new(Cache.Brands);
+            Brands = new(ObjectStorage.Brands);
             Brands.Insert(0, new Brand() { Name = "All" });
             Brands.Insert(1, new Brand() { Name = "---" });
 

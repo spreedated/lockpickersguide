@@ -1,19 +1,14 @@
 ﻿using LockpickersGuide.Datastructure;
+using LockpickersGuide.EventArgs;
 using LockpickersGuide.Models;
 using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using static LockpickersGuide.Logic.Database;
-using static LockpickersGuide.Logic.Constants;
-using System.Configuration;
-using Serilog;
-using LockpickersGuide.EventArgs;
 using System.Diagnostics;
-using System.Windows.Documents;
+using System.Linq;
+using static LockpickersGuide.Logic.Constants;
+using static LockpickersGuide.Logic.Database;
 
 namespace LockpickersGuide.Logic
 {
@@ -36,6 +31,7 @@ namespace LockpickersGuide.Logic
             {
                 return false;
             }
+
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
             FillObjectStorage<Country>(ref ObjectStorage.Countries, () => GetCountries(), CACHE_COUNTRIES);

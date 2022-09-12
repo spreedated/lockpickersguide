@@ -66,14 +66,14 @@ namespace LockpickersGuide.Logic
 
                 if (json != null && json.Length > 0)
                 {
-                    Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Cache hit");
+                    Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Redis Cache hit");
                     hs = JsonConvert.DeserializeObject<HashSetLockpicker<T>>(json);
 
                     return;
                 }
             }
 
-            Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Cache miss");
+            Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Redis Cache miss");
 
             foreach (T c in p().OrderBy(x => x.Name))
             {
@@ -83,11 +83,12 @@ namespace LockpickersGuide.Logic
             string jsonn = JsonConvert.SerializeObject(hs, Formatting.Indented);
             if (RedisConnectorHelper.Connection.GetDatabase().StringSet(cachekey, jsonn, expiry: new TimeSpan(12, 0, 0)))
             {
-                Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Cache warmed successfully");
+                Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Runtime Cache warmed successfully");
+                Cache.UpdateCache<T>(cachekey, hs);
             }
             else
             {
-                Log.Warning($"[Preload][FillObjectStorage<{typeof(T).Name}>] Cache warming failure");
+                Log.Warning($"[Preload][FillObjectStorage<{typeof(T).Name}>] Runtime Cache warming failure");
             }
         }
     }

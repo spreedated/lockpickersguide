@@ -17,7 +17,7 @@
                 <Button MaxWidth="120" Content="Countries" Margin="0,0,0,10" IsEnabled="False"/>
                 <Button MaxWidth="120" Content="Locktypes" Margin="0,0,0,10" IsEnabled="False"/>
                 <Button MaxWidth="160" Content="Lock Collection" Margin="0,0,0,10" IsEnabled="True" Click="BTN_CollectionLocks_Click"/>
-                <Button MaxWidth="120" Content="Belt Rankings" Margin="0,0,0,10" IsEnabled="False"/>
+                <Button MaxWidth="120" Content="Belt Rankings" Margin="0,0,0,10" IsEnabled="True"/>
             </StackPanel>
         </Border>
         <Frame x:Name="MainFrame" Margin="200,60,10,10"/>

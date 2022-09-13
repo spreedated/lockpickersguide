@@ -46,6 +46,9 @@ namespace LockpickersGuide.Logic
             FillObjectStorage<Locktype>(ref ObjectStorage.Locktypes, () => GetLocktypes(), CACHE_LOCKTYPES);
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
+            FillObjectStorage<Belt>(ref ObjectStorage.Belts, () => GetBelts(), CACHE_BELTS);
+            PreloadStep?.Invoke(null, System.EventArgs.Empty);
+
             s.Stop();
 
             PreloadComplete?.Invoke(null, new(s.Elapsed));

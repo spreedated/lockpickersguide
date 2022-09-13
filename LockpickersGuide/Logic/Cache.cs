@@ -18,7 +18,20 @@ namespace LockpickersGuide.Logic
 
         private static bool IsOptionAvailable()
         {
-            return Options.Instance.RedisConnection != null;
+            TimeSpan p;
+            try
+            {
+                p = RedisConnectorHelper.Connection.GetDatabase().Ping();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"[Cache][IsAvailable] Redis unavailable");
+                return false;
+            }
+
+            Log.Debug($"[Cache][IsAvailable] Redis available - ping {p.TotalMilliseconds}ms // {p:ss\\:ffffff}");
+
+            return true;
         }
 
         public static bool UpdateCache<T>(string key, IEnumerable<T> itemDatastructure)

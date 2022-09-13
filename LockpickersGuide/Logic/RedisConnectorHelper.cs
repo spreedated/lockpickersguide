@@ -2,10 +2,7 @@
 
 using StackExchange.Redis;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Serilog;
 
 namespace LockpickersGuide.Logic
 {
@@ -15,7 +12,15 @@ namespace LockpickersGuide.Logic
         {
             RedisConnectorHelper.lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
             {
-                return ConnectionMultiplexer.Connect(Options.Instance.RedisConnection.ToString());
+                try
+                {
+                    return ConnectionMultiplexer.Connect(Options.Instance.RedisConnection.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"[Cache][IsAvailable] Redis unavailable");
+                    return null;
+                }
             });
         }
 

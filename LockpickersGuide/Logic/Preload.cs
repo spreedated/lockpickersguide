@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using static LockpickersGuide.Logic.Constants;
 using static LockpickersGuide.Logic.Database;
 
@@ -32,6 +33,9 @@ namespace LockpickersGuide.Logic
                 return false;
             }
 
+            PreloadStep?.Invoke(null, System.EventArgs.Empty);
+
+            CheckRedisAvailablity();
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
             FillObjectStorage<Country>(ref ObjectStorage.Countries, () => GetCountries(), CACHE_COUNTRIES);
@@ -60,9 +64,14 @@ namespace LockpickersGuide.Logic
             Log.Information($"[Preload] Completed in \"{e.Duration:mm\\:ss\\:ffffff}\"");
         }
 
+        private static void CheckRedisAvailablity()
+        {
+            Variables.IsRedisAvailable = Cache.IsAvailable;
+        }
+
         private static void FillObjectStorage<T>(ref HashSetLockpicker<T> hs, Func<IEnumerable<T>> p, string cachekey) where T : IModelItem
         {
-            if (Cache.IsAvailable)
+            if (Variables.IsRedisAvailable)
             {
                 var cache = RedisConnectorHelper.Connection.GetDatabase();
                 string json = cache.StringGet(cachekey).ToString();
@@ -83,15 +92,18 @@ namespace LockpickersGuide.Logic
                 hs.Add(c);
             }
 
-            string jsonn = JsonConvert.SerializeObject(hs, Formatting.Indented);
-            if (RedisConnectorHelper.Connection.GetDatabase().StringSet(cachekey, jsonn, expiry: new TimeSpan(12, 0, 0)))
+            if (Variables.IsRedisAvailable)
             {
-                Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Runtime Cache warmed successfully");
-                Cache.UpdateCache<T>(cachekey, hs);
-            }
-            else
-            {
-                Log.Warning($"[Preload][FillObjectStorage<{typeof(T).Name}>] Runtime Cache warming failure");
+                string jsonn = JsonConvert.SerializeObject(hs, Formatting.Indented);
+                if (RedisConnectorHelper.Connection.GetDatabase().StringSet(cachekey, jsonn, expiry: new TimeSpan(12, 0, 0)))
+                {
+                    Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Runtime Cache warmed successfully");
+                    Cache.UpdateCache<T>(cachekey, hs);
+                }
+                else
+                {
+                    Log.Warning($"[Preload][FillObjectStorage<{typeof(T).Name}>] Runtime Cache warming failure");
+                }
             }
         }
     }

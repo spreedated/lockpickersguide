@@ -15,6 +15,7 @@ namespace LockpickersGuide.Logic
 {
     internal static class Preload
     {
+        public const int Steps = 10;
         public static event EventHandler PreloadStep;
         public static event EventHandler<PreloadCompleteEventArgs> PreloadComplete;
 

@@ -1,6 +1,7 @@
 ﻿using LockpickersGuide.Datastructure;
 using LockpickersGuide.Logic;
 using LockpickersGuide.Models;
+using LockpickersGuide.PresentiationModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,14 +33,20 @@ namespace LockpickersGuide.Views
             this.DataContext = this;
         }
 
+        readonly LockpickerPage[] pages = new LockpickerPage[]
+        {
+            new PG_Brands(),
+            new PG_CollectionLocks(),
+        };
+
         private void BTN_Brand_Click(object sender, RoutedEventArgs e)
         {
-            this.MainFrame.Navigate(new Uri("Views\\PG_Brands.xaml", UriKind.Relative));
+            this.MainFrame.Navigate(pages.FirstOrDefault(x => x.Name.Equals("brands", StringComparison.InvariantCultureIgnoreCase)));
         }
 
         private void BTN_CollectionLocks_Click(object sender, RoutedEventArgs e)
         {
-            this.MainFrame.Navigate(new Uri("Views\\PG_CollectionLocks.xaml", UriKind.Relative));
+            this.MainFrame.Navigate(pages.FirstOrDefault(x => x.Name.Equals("collectionLocks", StringComparison.InvariantCultureIgnoreCase)));
         }
     }
 }

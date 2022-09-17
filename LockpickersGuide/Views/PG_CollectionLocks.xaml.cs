@@ -1,6 +1,8 @@
 ﻿using LockpickersGuide.Datastructure;
 using LockpickersGuide.Logic;
 using LockpickersGuide.Models;
+using LockpickersGuide.PresentiationModels;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +27,7 @@ namespace LockpickersGuide.Views
     /// <summary>
     /// Interaction logic for PG_Main.xaml
     /// </summary>
-    public partial class PG_CollectionLocks : Page, INotifyPropertyChanged
+    public partial class PG_CollectionLocks : LockpickerPage, INotifyPropertyChanged
     {
         public ObservableCollection<Brand> Brands { get; internal set; }
         public ObservableCollection<CollectionLocks> CollectionLocks { get; internal set; }
@@ -33,6 +35,7 @@ namespace LockpickersGuide.Views
         {
             InitializeComponent();
             this.DataContext = this;
+            base.Name = "CollectionLocks";
 
             Brands = new(ObjectStorage.Brands);
             Brands.Insert(0, new Brand() { Name = "All" });
@@ -90,5 +93,15 @@ namespace LockpickersGuide.Views
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(action));
         }
         #endregion
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (base.firstload)
+            {
+                Log.Debug($"[View][PG_Brands] First load");
+
+                base.firstload ^= true;
+            }
+        }
     }
 }

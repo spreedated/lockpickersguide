@@ -15,7 +15,7 @@ namespace LockpickersGuide.Models
             }
             set
             {
-                throw new NotImplementedException();
+                _ = value;
             }
         }
         public string Inch { get; set; }

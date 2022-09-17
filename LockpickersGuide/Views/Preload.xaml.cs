@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Timers;
+using Serilog;
 
 namespace LockpickersGuide.Views
 {
@@ -36,7 +37,7 @@ namespace LockpickersGuide.Views
             {
                 await Task.Delay(1500);
 
-                pp.Preload.PreloadStep += (o, e) => { this.Dispatcher.Invoke(() => { PRG_Progress.Value += 10; }); };
+                pp.Preload.PreloadStep += (o, e) => { this.Dispatcher.Invoke(() => { PRG_Progress.Value += (double)100 / pp.Preload.Steps; }); };
                 pp.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(() => { LBL_Loading.Content = "Complete"; PRG_Progress.Value = 100; }); };
 
                 await Task.Factory.StartNew(() =>

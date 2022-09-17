@@ -1,6 +1,8 @@
 ﻿using LockpickersGuide.Datastructure;
 using LockpickersGuide.Logic;
 using LockpickersGuide.Models;
+using LockpickersGuide.PresentiationModels;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,16 +26,16 @@ namespace LockpickersGuide.Views
     /// <summary>
     /// Interaction logic for PG_Main.xaml
     /// </summary>
-    public partial class PG_Brands : Page
+    public partial class PG_Brands : LockpickerPage
     {
         public HashSetLockpicker<Brand> Brands { get; internal set; }
         public PG_Brands()
         {
             InitializeComponent();
-            this.DataContext = this;
+            base.DataContext = this;
+            base.Name = "Brands";
 
             Brands = ObjectStorage.Brands;
-
             OnPropertyChanged(nameof(Brands));
         }
 
@@ -41,6 +43,14 @@ namespace LockpickersGuide.Views
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (base.firstload)
+            {
+                Log.Debug($"[View][PG_Brands] First load");
+            }
         }
     }
 }

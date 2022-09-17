@@ -1,12 +1,14 @@
-﻿<Page x:Class="LockpickersGuide.Views.PG_Brands"
+﻿<localm:LockpickerPage
+      x:Class="LockpickersGuide.Views.PG_Brands"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LockpickersGuide.Views"
+      xmlns:localm="clr-namespace:LockpickersGuide.PresentiationModels" d:DataContext="{d:DesignInstance Type=local:PG_Brands}"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1200"
-      Title="PG_Main">
+      Title="PG_Main" Loaded="Page_Loaded">
 
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" Margin="0,57,0,0" Orientation="Horizontal">
@@ -15,4 +17,4 @@
         </StackPanel>
         <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,193,0,0" Height="243" Width="320"/>
     </Grid>
-</Page>
+</localm:LockpickerPage>

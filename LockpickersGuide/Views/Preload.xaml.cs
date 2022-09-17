@@ -50,7 +50,7 @@ namespace LockpickersGuide.Views
             set
             {
                 this._ProgressValue = value;
-                this.OnPropertyChanged(nameof(this._ProgressValue));
+                this.OnPropertyChanged(nameof(this.ProgressValue));
             }
         }
 

@@ -26,17 +26,14 @@ namespace LockpickersGuide.Views
     /// <summary>
     /// Interaction logic for PG_Main.xaml
     /// </summary>
-    public partial class PG_Brands : LockpickerPage
+    public partial class PG_Brands : LockpickerPage, INotifyPropertyChanged
     {
         public HashSetLockpicker<Brand> Brands { get; internal set; }
         public PG_Brands()
         {
             InitializeComponent();
             base.DataContext = this;
-            base.Name = "Brands";
-
-            Brands = ObjectStorage.Brands;
-            OnPropertyChanged(nameof(Brands));
+            base.Pagename = "Brands";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,6 +47,11 @@ namespace LockpickersGuide.Views
             if (base.firstload)
             {
                 Log.Debug($"[View][PG_Brands] First load");
+
+                Brands = ObjectStorage.Brands;
+                OnPropertyChanged(nameof(Brands));
+
+                base.firstload ^= true;
             }
         }
     }

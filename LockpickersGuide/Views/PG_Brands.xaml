@@ -13,7 +13,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" Margin="0,57,0,0" Orientation="Horizontal">
             <Label Content="Make:" Margin="0,0,20,0"/>
-            <ComboBox Width="193" ItemsSource="{Binding Path=Brands}" DisplayMemberPath="Name" />
+            <ComboBox Width="193" ItemsSource="{Binding Path=Brands}" Foreground="WhiteSmoke" DisplayMemberPath="Name" />
         </StackPanel>
         <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,193,0,0" Height="243" Width="320"/>
     </Grid>

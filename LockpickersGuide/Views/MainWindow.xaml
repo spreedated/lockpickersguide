@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LockpickersGuide"
         xmlns:vm="clr-namespace:LockpickersGuide.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+        Title="MainWindow" MinHeight="600" Height="600" MinWidth="600" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
     <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>-->

@@ -1,21 +1,22 @@
-﻿<Page x:Class="LockpickersGuide.Views.PG_Belts"
+﻿<localm:LockpickerPage x:Class="LockpickersGuide.Views.PG_Belts"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:LockpickersGuide.Views"
+      xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=local:PG_Belts}"
+      xmlns:localm="clr-namespace:LockpickersGuide.PresentiationModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PG_Belts">
+      Title="PG_Belts" Loaded="Page_Loaded">
 
     <Grid>
         <StackPanel Width="auto" Orientation="Horizontal" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0">
             <Label Content="Make:" Margin="0,0,20,0"/>
-            <ComboBox Width="193" ItemsSource="{Binding Path=Brands}" DisplayMemberPath="Name" />
+            <ComboBox Width="193" ItemsSource="{Binding Path=Belts}" Foreground="WhiteSmoke" DisplayMemberPath="Name" />
         </StackPanel>
         <Grid Width="auto" Margin="0,36,0,32" d:LayoutOverrides="Height" >
             <DataGrid x:Name="DGV_Main" Height="auto" Width="auto"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" />
         </Grid>
         <Label x:Name="LBL_Rowcount" Width="auto" Height="32" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom"/>
     </Grid>
-</Page>
+</localm:LockpickerPage>

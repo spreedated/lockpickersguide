@@ -35,7 +35,7 @@ namespace LockpickersGuide.Views
         {
             InitializeComponent();
             this.DataContext = this;
-            base.Name = "CollectionLocks";
+            base.Pagename = "CollectionLocks";
 
             Brands = new(ObjectStorage.Brands);
             Brands.Insert(0, new Brand() { Name = "All" });

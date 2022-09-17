@@ -15,18 +15,67 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Timers;
 using Serilog;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace LockpickersGuide.Views
 {
     /// <summary>
     /// Interaction logic for Preload.xaml
     /// </summary>
-    public partial class Preload : Page
+    public partial class Preload : Page, INotifyPropertyChanged
     {
+        private string _LabelContent = "Loading please wait ...";
+        public string LabelContent
+        {
+            get
+            {
+                return this._LabelContent;
+            }
+            set
+            {
+                this._LabelContent = value;
+                this.OnPropertyChanged(nameof(this.LabelContent));
+            }
+        }
+
+        private double _ProgressValue = 0;
+        public double ProgressValue
+        {
+            get
+            {
+                return this._ProgressValue;
+            }
+            set
+            {
+                this._ProgressValue = value;
+                this.OnPropertyChanged(nameof(this._ProgressValue));
+            }
+        }
+
+        private Visibility _ProgressBarVisibility = Visibility.Visible;
+        public Visibility ProgressBarVisibility
+        {
+            get
+            {
+                return this._ProgressBarVisibility;
+            }
+            set
+            {
+                this._ProgressBarVisibility = value;
+                this.OnPropertyChanged(nameof(this.ProgressBarVisibility));
+            }
+        }
+
+        private const string errorMessage = "Incomplete, no database available - shutting down in # seconds";
+        private int countError = 10;
         private static readonly Timer dotTimer = new();
+
         public Preload()
         {
             InitializeComponent();
+            this.DataContext = this;
 
             dotTimer.Elapsed += DotTimer_Elapsed;
             dotTimer.Interval = 500;
@@ -37,14 +86,31 @@ namespace LockpickersGuide.Views
             {
                 await Task.Delay(1500);
 
-                pp.Preload.PreloadStep += (o, e) => { this.Dispatcher.Invoke(() => { PRG_Progress.Value += (double)100 / pp.Preload.Steps; }); };
-                pp.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(() => { LBL_Loading.Content = "Complete"; PRG_Progress.Value = 100; }); };
+                pp.Preload.PreloadStep += (o, e) => { this.Dispatcher.Invoke(() => { ProgressValue += (double)100 / pp.Preload.Steps; }); };
+                pp.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(() => { this.LabelContent = "Complete"; ProgressValue = 100; }); };
 
-                await Task.Factory.StartNew(() =>
+                await Task.Factory.StartNew(async () =>
                 {
-                    if (pp.Preload.Load())
+                    if (!pp.Preload.Load())
                     {
-                        //TODO: handle error
+                        Log.Debug($"[View][Preload] Preload error");
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            dotTimer.Stop();
+                            this.ProgressValue = 0;
+                            this.ProgressBarVisibility = Visibility.Collapsed;
+                        });
+
+                        while (countError > 0)
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.LabelContent = errorMessage.Replace("#", countError.ToString());
+                            });
+                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            countError--;
+                        }
+                        Environment.Exit(-1);
                     }
                 });
 
@@ -57,8 +123,7 @@ namespace LockpickersGuide.Views
         {
             this.Dispatcher.Invoke(() =>
             {
-                string tx = LBL_Loading.Content.ToString();
-                LBL_Loading.Content = tx.Substring(0, tx.LastIndexOf(' ')+1) + new string('.', dotStatus);
+                LabelContent = this.LabelContent.Substring(0, this.LabelContent.LastIndexOf(' ')+1) + new string('.', dotStatus);
                 dotStatus++;
 
                 if (dotStatus >= 4)
@@ -67,5 +132,18 @@ namespace LockpickersGuide.Views
                 }
             });
         }
+
+        #region WPF Stuff
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        public event NotifyCollectionChangedEventHandler CollectionChanged = delegate { };
+        public void OnCollectionChanged(NotifyCollectionChangedAction action)
+        {
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(action));
+        }
+        #endregion
     }
 }

@@ -29,7 +29,7 @@ namespace LockpickersGuide.Logic
             Options.Initialize();
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
-            if (!AreCredentialsValid())
+            if (!AreDatabaseCredentialsValid())
             {
                 return false;
             }

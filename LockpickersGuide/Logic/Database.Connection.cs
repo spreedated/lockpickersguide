@@ -10,7 +10,7 @@ namespace LockpickersGuide.Logic
 {
     internal static partial class Database
     {
-        internal static bool AreCredentialsValid()
+        internal static bool AreDatabaseCredentialsValid()
         {
             if (!Options.Instance.DatabaseCredentials.Host.IsSet() || !Options.Instance.DatabaseCredentials.Username.IsSet() || !Options.Instance.DatabaseCredentials.Password.IsSet() || !Options.Instance.DatabaseCredentials.Port.IsSet())
             {

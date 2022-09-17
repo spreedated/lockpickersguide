@@ -1,10 +1,35 @@
-﻿namespace LockpickersGuide.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
+namespace LockpickersGuide.Models
 {
-    public class Belt : IModelItem
+    public class Belt : IModelItem, IEquatable<Belt>
     {
         public int DatabaseId { get; set; }
         public string Name { get; set; }
         public string Imagelink { get; set; }
         public string Description { get; set; }
+
+        public bool Equals(Belt other)
+        {
+            return this.DatabaseId == other.DatabaseId &&
+                this.Name == other.Name &&
+                this.Imagelink == other.Imagelink &&
+                this.Description == other.Description;
+        }
+    }
+
+    public class BeltComparer : IEqualityComparer<Belt>
+    {
+        public bool Equals(Belt x, Belt y)
+        {
+            return x.DatabaseId == y.DatabaseId && x.Name == y.Name && x.Imagelink == y.Imagelink && x.Description == y.Description;
+        }
+
+        public int GetHashCode([DisallowNull] Belt obj)
+        {
+            return obj.DatabaseId.GetHashCode() ^ obj.Name.GetHashCode() ^ obj.Imagelink.GetHashCode() ^ obj.Description.GetHashCode();
+        }
     }
 }

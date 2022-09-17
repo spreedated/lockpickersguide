@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LockpickersGuide.Models
+﻿namespace LockpickersGuide.Models
 {
     public class CollectionLocks : ICollectionLock
     {

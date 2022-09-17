@@ -11,6 +11,11 @@ namespace LockpickersGuide.Datastructure
 
         }
 
+        public HashSetLockpicker(IEqualityComparer<T> comparer) : base(comparer)
+        {
+
+        }
+
         public new bool Add(T item)
         {
             if (item is IModelItem it)

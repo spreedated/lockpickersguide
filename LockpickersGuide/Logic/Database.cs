@@ -43,7 +43,7 @@ namespace LockpickersGuide.Logic
                                 Guttable = dr.GetBoolean(12)
                             };
 
-                            //Cache..Add(l);
+                            ObjectStorage.CollectionLocks.Add(l);
 
                             yield return l;
                         }

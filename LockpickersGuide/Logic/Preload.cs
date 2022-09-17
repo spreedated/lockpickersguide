@@ -71,7 +71,7 @@ namespace LockpickersGuide.Logic
 
         private static void FillObjectStorage<T>(ref HashSetLockpicker<T> hs, Func<IEnumerable<T>> p, string cachekey) where T : IModelItem
         {
-            if (Variables.IsRedisAvailable)
+            if (Variables.IsRedisAvailable && !Options.Instance.ForceDatabaseReload)
             {
                 var cache = RedisConnectorHelper.Connection.GetDatabase();
                 string json = cache.StringGet(cachekey).ToString();

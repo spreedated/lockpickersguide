@@ -7,6 +7,9 @@ namespace LockpickersGuide.Models
     {
         [JsonProperty("databasecredentials")]
         public NpgsqlConnectionStringBuilder DatabaseCredentials { get; set; } = new() { Host = "", Port = 5432, Database = "", Username = "", Password = "" };
+        [JsonProperty("redis")]
         public RedisConnection RedisConnection { get; set; }
+        [JsonIgnore()]
+        public bool ForceDatabaseReload { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace LockpickersGuide
         {
             InitializeComponent();
             this.DataContext = this;
+            this.Icon = new BitmapImage(new Uri("pack://application:,,,/LockpickersGuide;component/Ressources/2472420.png"));
 
             Preload.PreloadComplete += (o,e) => { this.Dispatcher.Invoke(async ()=> { await Task.Delay(1500); FRM_Main.Navigate(new Uri("Views\\PG_Main.xaml", UriKind.Relative)); }); };
         }

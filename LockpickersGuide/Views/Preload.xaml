@@ -10,6 +10,6 @@
 
     <Grid>
         <Label x:Name="LBL_Loading" Content="Loading please wait ..." VerticalAlignment="Center" HorizontalAlignment="Center" Height="24" Margin="0,-30,0,0" />
-        <ProgressBar x:Name="PRG_Progress" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="24" Margin="0,30,0,0" />
+        <ProgressBar x:Name="PRG_Progress" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="24" Margin="0,30,0,0" d:Value="60" />
     </Grid>
 </Page>

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
 
 namespace LockpickersGuide.Models
 {
-    public sealed class CollectionLocks : ICollectionLock, IEquatable<CollectionLocks>
+    public sealed class CollectionLocks : ICollectionLock, IEquatable<CollectionLocks>, IValidatableObject
     {
+        [Required]
         public string DatabaseId { get; set; }
         public string Name
         {
@@ -14,13 +18,15 @@ namespace LockpickersGuide.Models
                 return this.Model;
             }
         }
-
+        [Required]
         public Locktype Type { get; set; }
+        [Required]
         public Brand Brand { get; set; }
         public string Modelname { get; set; }
         public string Model { get; set; }
         public string BindingOrder { get; set; }
         public bool Picked { get; set; }
+        [Required]
         public Core Core { get; set; }
         public string Description { get; set; }
         public int Keycount { get; set; }
@@ -44,6 +50,18 @@ namespace LockpickersGuide.Models
                 (this.Type == other.Type || this.Type.Equals(other.Type)) &&
                 (this.Brand == other.Brand || this.Brand.Equals(other.Brand)) &&
                 (this.Core == other.Core || this.Core.Equals(other.Core));
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var results = new List<ValidationResult>();
+
+            foreach (PropertyInfo p in this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty).Where(x => x.CustomAttributes.Any(y => y.AttributeType == typeof(RequiredAttribute))))
+            {
+                Validator.TryValidateProperty(p.GetValue(this), new ValidationContext(this) { MemberName = p.Name }, results);
+            }
+
+            return results;
         }
     }
 

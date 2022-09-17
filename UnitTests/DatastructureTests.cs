@@ -47,6 +47,11 @@ namespace UnitTests
                 Assert.That(l.Equals(f), Is.True);
                 Assert.That(h.Count, Is.EqualTo(1));
             });
+
+            Locktype c1 = new();
+            Locktype c2 = new();
+
+            Assert.That(c1.Equals(c2), Is.True);
         }
 
         [Test]
@@ -79,6 +84,11 @@ namespace UnitTests
                 Assert.That(l.Equals(f), Is.True);
                 Assert.That(h.Count, Is.EqualTo(1));
             });
+
+            Belt c1 = new();
+            Belt c2 = new();
+
+            Assert.That(c1.Equals(c2), Is.True);
         }
 
         [Test]
@@ -113,6 +123,11 @@ namespace UnitTests
                 Assert.That(l.Equals(f), Is.True);
                 Assert.That(h.Count, Is.EqualTo(1));
             });
+
+            Country c1 = new();
+            Country c2 = new();
+
+            Assert.That(c1.Equals(c2), Is.True);
         }
 
         [Test]
@@ -167,6 +182,11 @@ namespace UnitTests
                 Assert.That(l.Equals(f), Is.True);
                 Assert.That(h.Count, Is.EqualTo(1));
             });
+
+            Brand c1 = new();
+            Brand c2 = new();
+
+            Assert.That(c1.Equals(c2), Is.True);
         }
 
         [TearDown]

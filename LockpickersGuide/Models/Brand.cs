@@ -27,7 +27,7 @@ namespace LockpickersGuide.Models
         {
             return this.DatabaseId == other.DatabaseId &&
                 this.Name == other.Name &&
-                this.Country.Equals(other.Country) &&
+                (this.Country == other.Country || this.Country.Equals(other.Country)) &&
                 this.Founded == other.Founded &&
                 this.City == other.City &&
                 this.Website == other.Website &&
@@ -43,7 +43,7 @@ namespace LockpickersGuide.Models
         {
             return x.DatabaseId == y.DatabaseId &&
                 x.Name == y.Name &&
-                x.Country.Equals(y.Country) &&
+                (x.Country == y.Country || x.Country.Equals(y.Country)) &&
                 x.Founded == y.Founded &&
                 x.City == y.City &&
                 x.Website == y.Website &&

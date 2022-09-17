@@ -22,6 +22,88 @@ namespace UnitTests
         }
 
         [Test]
+        public void BodywidthTests()
+        {
+            HashSetLockpicker<Bodywidth> h = new(new BodywidthComparer());
+
+            Bodywidth l = new()
+            {
+                DatabaseId = 1,
+                Inch = "1-1/2",
+                Mm = 29.2d
+            };
+
+            Bodywidth f = new()
+            {
+                DatabaseId = 1,
+                Inch = "1-1/2",
+                Mm = 29.2d
+            };
+
+            h.Add(l);
+            h.Add(f);
+            h.Add(l);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(l.Equals(f), Is.True);
+                Assert.That(h.Count, Is.EqualTo(1));
+            });
+
+            Bodywidth c1 = new();
+            Bodywidth c2 = new();
+
+            h.Add(c1);
+            h.Add(c2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(c1.Equals(c2), Is.True);
+                Assert.That(h.Count, Is.EqualTo(2));
+            });
+        }
+
+        [Test]
+        public void ColorTests()
+        {
+            HashSetLockpicker<Color> h = new(new ColorComparer());
+
+            Color l = new()
+            {
+                DatabaseId = 1,
+                Name = "Black"
+            };
+
+            Color f = new()
+            {
+                DatabaseId = 1,
+                Name = "Black"
+            };
+
+            h.Add(l);
+            h.Add(f);
+            h.Add(l);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(l.Equals(f), Is.True);
+                Assert.That(h.Count, Is.EqualTo(1));
+            });
+
+            Color c1 = new();
+            Color c2 = new();
+
+            h.Add(c1);
+            h.Add(c2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(c1.Equals(c2), Is.True);
+                Assert.That(h.Count, Is.EqualTo(2));
+            });
+        }
+
+        [Test]
         public void LocktypeHashsetTest()
         {
             HashSetLockpicker<Locktype> h = new(new LocktypeComparer());

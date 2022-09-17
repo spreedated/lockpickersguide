@@ -217,6 +217,119 @@ namespace UnitTests
             });
         }
 
+        [Test]
+        public void CollectionLocksHashsetTest()
+        {
+            HashSetLockpicker<CollectionLocks> h = new(new CollectionLocksComparer());
+
+            CollectionLocks l = new()
+            {
+                DatabaseId = "AF5B",
+                BindingOrder = null,
+                Brand = new Brand()
+                {
+                    DatabaseId = 1,
+                    Description = "Some Description",
+                    Name = "Great Brand",
+                    Website = "http://some.thing",
+                    AltName = null,
+                    City = "None",
+                    Country = new Country()
+                    {
+                        DatabaseId = 1,
+                        Iso3 = "III",
+                        Iso = "II",
+                        Name = "None",
+                        Nicename = "None"
+                    },
+                    Founded = 2022
+                },
+                Core = new Core()
+                {
+                    DatabaseId = 1,
+                    Name = "Something"
+                },
+                Description = null,
+                Model = "Something",
+                Modelname = "Something",
+                Type = new Locktype()
+                {
+                    DatabaseId = 1,
+                    Name = "MyLock"
+                },
+                Picked = true,
+                Price = 148.25d,
+                Ownership = false
+            };
+
+            CollectionLocks f = new()
+            {
+                DatabaseId = "AF5B",
+                BindingOrder = null,
+                Brand = new Brand()
+                {
+                    DatabaseId = 1,
+                    Description = "Some Description",
+                    Name = "Great Brand",
+                    Website = "http://some.thing",
+                    AltName = null,
+                    City = "None",
+                    Country = new Country()
+                    {
+                        DatabaseId = 1,
+                        Iso3 = "III",
+                        Iso = "II",
+                        Name = "None",
+                        Nicename = "None"
+                    },
+                    Founded = 2022
+                },
+                Core = new Core()
+                {
+                    DatabaseId = 1,
+                    Name = "Something"
+                },
+                Description = null,
+                Model = "Something",
+                Modelname = "Something",
+                Type = new Locktype()
+                {
+                    DatabaseId = 1,
+                    Name = "MyLock"
+                },
+                Picked = true,
+                Price = 148.25d,
+                Ownership = false
+            };
+
+            h.Add(l);
+            h.Add(f);
+            h.Add(l);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(l.Equals(f), Is.True);
+                Assert.That(h.Count, Is.EqualTo(1));
+            });
+
+            CollectionLocks c1 = new();
+            CollectionLocks c2 = new();
+
+            h.Add(c1);
+            h.Add(c2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(c1.Equals(c2), Is.True);
+                Assert.That(h.Count, Is.EqualTo(2));
+            });
+
+            Core c3 = new();
+            Core c4 = new();
+
+            Assert.That(c3.Equals(c4), Is.True);
+        }
+
         [TearDown]
         public void TearDown()
         {

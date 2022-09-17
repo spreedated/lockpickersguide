@@ -53,6 +53,12 @@ namespace LockpickersGuide.Logic
             FillObjectStorage<Belt>(ref ObjectStorage.Belts, () => GetBelts(), CACHE_BELTS);
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
+            FillObjectStorage<Color>(ref ObjectStorage.Colors, () => GetColors(), CACHE_COLORS);
+            PreloadStep?.Invoke(null, System.EventArgs.Empty);
+
+            FillObjectStorage<Bodywidth>(ref ObjectStorage.Bodywidths, () => GetBodywidths(), CACHE_BODYWIDTHS);
+            PreloadStep?.Invoke(null, System.EventArgs.Empty);
+
             s.Stop();
 
             PreloadComplete?.Invoke(null, new(s.Elapsed));

@@ -11,5 +11,7 @@ namespace LockpickersGuide.Logic
         internal static HashSetLockpicker<Core> Cores = new();
         internal static HashSetLockpicker<Belt> Belts = new();
         internal static HashSetLockpicker<CollectionLocks> CollectionLocks = new();
+        internal static HashSetLockpicker<Bodywidth> Bodywidths = new();
+        internal static HashSetLockpicker<Color> Colors = new();
     }
 }

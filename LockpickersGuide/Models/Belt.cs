@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace LockpickersGuide.Models
 {
-    public class Belt : IModelItem, IEquatable<Belt>
+    public sealed class Belt : IModelItem, IEquatable<Belt>
     {
         public int DatabaseId { get; set; }
         public string Name { get; set; }
@@ -24,12 +24,18 @@ namespace LockpickersGuide.Models
     {
         public bool Equals(Belt x, Belt y)
         {
-            return x.DatabaseId == y.DatabaseId && x.Name == y.Name && x.Imagelink == y.Imagelink && x.Description == y.Description;
+            return x.DatabaseId == y.DatabaseId &&
+                x.Name == y.Name &&
+                x.Imagelink == y.Imagelink &&
+                x.Description == y.Description;
         }
 
         public int GetHashCode([DisallowNull] Belt obj)
         {
-            return obj.DatabaseId.GetHashCode() ^ obj.Name.GetHashCode() ^ obj.Imagelink.GetHashCode() ^ obj.Description.GetHashCode();
+            return obj.DatabaseId.GetHashCode() ^
+                (obj.Name == null ? 0 : obj.Name.GetHashCode()) ^
+                (obj.Imagelink == null ? 0 : obj.Imagelink.GetHashCode()) ^
+                (obj.Description == null ? 0 : obj.Description.GetHashCode());
         }
     }
 }

@@ -37,10 +37,10 @@ namespace LockpickersGuide.Models
         public int GetHashCode([DisallowNull] Country obj)
         {
             return obj.DatabaseId.GetHashCode() ^
-                obj.Name.GetHashCode() ^
-                obj.Iso.GetHashCode() ^
-                obj.Iso3.GetHashCode() ^
-                obj.Nicename.GetHashCode();
+                (obj.Name == null ? 0 : obj.Name.GetHashCode()) ^
+                (obj.Iso == null ? 0 : obj.Iso.GetHashCode()) ^
+                (obj.Iso3 == null ? 0 : obj.Iso3.GetHashCode()) ^
+                (obj.Nicename == null ? 0 : obj.Nicename.GetHashCode());
         }
     }
 }

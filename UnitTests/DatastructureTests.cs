@@ -51,7 +51,14 @@ namespace UnitTests
             Locktype c1 = new();
             Locktype c2 = new();
 
-            Assert.That(c1.Equals(c2), Is.True);
+            h.Add(c1);
+            h.Add(c2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(c1.Equals(c2), Is.True);
+                Assert.That(h.Count, Is.EqualTo(2));
+            });
         }
 
         [Test]
@@ -88,7 +95,14 @@ namespace UnitTests
             Belt c1 = new();
             Belt c2 = new();
 
-            Assert.That(c1.Equals(c2), Is.True);
+            h.Add(c1);
+            h.Add(c2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(c1.Equals(c2), Is.True);
+                Assert.That(h.Count, Is.EqualTo(2));
+            });
         }
 
         [Test]
@@ -127,7 +141,14 @@ namespace UnitTests
             Country c1 = new();
             Country c2 = new();
 
-            Assert.That(c1.Equals(c2), Is.True);
+            h.Add(c1);
+            h.Add(c2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(c1.Equals(c2), Is.True);
+                Assert.That(h.Count, Is.EqualTo(2));
+            });
         }
 
         [Test]
@@ -186,7 +207,14 @@ namespace UnitTests
             Brand c1 = new();
             Brand c2 = new();
 
-            Assert.That(c1.Equals(c2), Is.True);
+            h.Add(c1);
+            h.Add(c2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(c1.Equals(c2), Is.True);
+                Assert.That(h.Count, Is.EqualTo(2));
+            });
         }
 
         [TearDown]

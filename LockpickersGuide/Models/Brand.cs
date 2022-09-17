@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml.Linq;
 
 namespace LockpickersGuide.Models
 {
-    public class Brand : IModelItem, IEquatable<Brand>
+    public sealed class Brand : IModelItem, IEquatable<Brand>
     {
         public int DatabaseId { get; set; }
         public string Name { get; set; }
@@ -41,6 +42,11 @@ namespace LockpickersGuide.Models
     {
         public bool Equals(Brand x, Brand y)
         {
+            if (x == null || y == null)
+            {
+                return false;
+            }
+
             return x.DatabaseId == y.DatabaseId &&
                 x.Name == y.Name &&
                 (x.Country == y.Country || x.Country.Equals(y.Country)) &&
@@ -54,14 +60,18 @@ namespace LockpickersGuide.Models
 
         public int GetHashCode([DisallowNull] Brand obj)
         {
+            if (obj == null)
+            {
+                return -1;
+            }
+            
             return obj.DatabaseId.GetHashCode() ^
-                obj.Name.GetHashCode() ^
-                obj.Founded.GetHashCode() ^
-                obj.City.GetHashCode() ^
-                obj.Website.GetHashCode() ^
-                obj.Website.GetHashCode() ^
+                (obj.Name == null ? 0 : obj.Name.GetHashCode()) ^
+                (obj.Founded == null ? 0 : obj.Founded.GetHashCode()) ^
+                (obj.City == null ? 0 : obj.City.GetHashCode()) ^
+                (obj.Website == null ? 0 : obj.Website.GetHashCode()) ^
                 (obj.AltName == null ? 0 : obj.AltName.GetHashCode()) ^
-                obj.Description.GetHashCode();
+                (obj.Description == null ? 0 : obj.Description.GetHashCode());
         }
     }
 }

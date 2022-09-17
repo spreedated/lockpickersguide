@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace LockpickersGuide.Models
 {
-    public class Core : IModelItem, IEquatable<Core>
+    public sealed class Core : IModelItem, IEquatable<Core>
     {
         public int DatabaseId { get; set; }
         public string Name { get; set; }
@@ -27,7 +27,7 @@ namespace LockpickersGuide.Models
         public int GetHashCode([DisallowNull] Core obj)
         {
             return obj.DatabaseId.GetHashCode() ^
-                obj.Name.GetHashCode();
+                (obj.Name == null ? 0 : obj.Name.GetHashCode());
         }
     }
 }

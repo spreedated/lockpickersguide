@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace LockpickersGuide.Models
 {
-    public class Locktype : IModelItem, IEquatable<Locktype>
+    public sealed class Locktype : IModelItem, IEquatable<Locktype>
     {
         public int DatabaseId { get; set; }
         public string Name { get; set; }
@@ -20,12 +20,14 @@ namespace LockpickersGuide.Models
     {
         public bool Equals(Locktype x, Locktype y)
         {
-            return x.DatabaseId == y.DatabaseId && x.Name == y.Name;
+            return x.DatabaseId == y.DatabaseId &&
+                x.Name == y.Name;
         }
 
         public int GetHashCode([DisallowNull] Locktype obj)
         {
-            return obj.DatabaseId.GetHashCode() ^ obj.Name.GetHashCode();
+            return obj.DatabaseId.GetHashCode() ^
+                (obj.Name == null ? 0 : obj.Name.GetHashCode());
         }
     }
 }

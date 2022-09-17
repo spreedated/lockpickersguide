@@ -1,7 +1,5 @@
-﻿using LockpickersGuide.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.IO;
-using System.Net;
 using System.Text;
 using static LockpickersGuide.Logic.Variables;
 

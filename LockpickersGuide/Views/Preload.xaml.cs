@@ -1,23 +1,13 @@
-﻿using pp = LockpickersGuide.Logic;
+﻿using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Timers;
-using Serilog;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Timers;
+using System.Windows;
+using System.Windows.Controls;
+using pp = LockpickersGuide.Logic;
 
 namespace LockpickersGuide.Views
 {
@@ -82,7 +72,7 @@ namespace LockpickersGuide.Views
             dotTimer.Enabled = true;
             dotTimer.Start();
 
-            Task.Factory.StartNew(async ()=>
+            Task.Factory.StartNew(async () =>
             {
                 await Task.Delay(1500);
 
@@ -123,7 +113,7 @@ namespace LockpickersGuide.Views
         {
             this.Dispatcher.Invoke(() =>
             {
-                LabelContent = this.LabelContent.Substring(0, this.LabelContent.LastIndexOf(' ')+1) + new string('.', dotStatus);
+                LabelContent = this.LabelContent.Substring(0, this.LabelContent.LastIndexOf(' ') + 1) + new string('.', dotStatus);
                 dotStatus++;
 
                 if (dotStatus >= 4)

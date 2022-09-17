@@ -1,8 +1,8 @@
 ﻿#pragma warning disable S3963
 
+using Serilog;
 using StackExchange.Redis;
 using System;
-using Serilog;
 
 namespace LockpickersGuide.Logic
 {

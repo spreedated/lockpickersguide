@@ -1,8 +1,8 @@
-﻿using StackExchange.Redis;
+﻿using Newtonsoft.Json;
+using Serilog;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Serilog;
 using System.Linq;
 using System.Reflection;
 
@@ -24,11 +24,11 @@ namespace LockpickersGuide.Logic
 
             if (t == null)
             {
-                Log.Debug($"[Cache][ClearEntireCache] No connection to caching server");
+                Log.Debug($"[Cache][IsOptionAvailable] No connection to caching server");
                 return false;
             }
 
-            Log.Debug($"[Cache][IsAvailable] Redis available - ping {t?.TotalMilliseconds}ms // {t:ss\\:ffffff}");
+            Log.Debug($"[Cache][IsOptionAvailable] Redis available - ping {t?.TotalMilliseconds}ms // {t:ss\\:ffffff}");
 
             return true;
         }
@@ -42,7 +42,7 @@ namespace LockpickersGuide.Logic
 
         public static bool ClearEntireCache()
         {
-            IEnumerable<KeyValuePair<string, string>> kkv = typeof(Constants).GetFields(BindingFlags.Public | BindingFlags.Static).Where(x => x.Name.ToLower().StartsWith("cache")).Select(x => new KeyValuePair<string, string>(x.Name,x.GetValue(x).ToString()));
+            IEnumerable<KeyValuePair<string, string>> kkv = typeof(Constants).GetFields(BindingFlags.Public | BindingFlags.Static).Where(x => x.Name.ToLower().StartsWith("cache")).Select(x => new KeyValuePair<string, string>(x.Name, x.GetValue(x).ToString()));
 
             IDatabase cache = RedisConnectorHelper.Connection?.GetDatabase();
 
@@ -52,10 +52,10 @@ namespace LockpickersGuide.Logic
                 return false;
             }
 
-            long keycount = cache.KeyDelete(kkv.Select(x=> new RedisKey(x.Value)).ToArray());
+            long keycount = cache.KeyDelete(kkv.Select(x => new RedisKey(x.Value)).ToArray());
 
             Log.Debug($"[Cache][ClearEntireCache] Deleted {keycount}/{kkv.Count()}");
-            Log.Verbose($"[Cache][ClearEntireCache] Deleted {string.Join(" - ", kkv.Select(x=> $"Key: \"{x.Key}\" -> \"{x.Value}\"" )).TrimEnd().TrimEnd('-').TrimEnd()}");
+            Log.Verbose($"[Cache][ClearEntireCache] Deleted {string.Join(" - ", kkv.Select(x => $"Key: \"{x.Key}\" -> \"{x.Value}\"")).TrimEnd().TrimEnd('-').TrimEnd()}");
 
             return kkv.Count() == keycount;
         }

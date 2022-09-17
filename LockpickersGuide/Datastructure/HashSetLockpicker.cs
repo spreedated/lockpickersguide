@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using LockpickersGuide.Models;
+﻿using LockpickersGuide.Models;
 using Serilog;
+using System.Collections.Generic;
 
 namespace LockpickersGuide.Datastructure
 {

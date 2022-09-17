@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Xml.Linq;
 
 namespace LockpickersGuide.Models
 {
@@ -64,7 +63,7 @@ namespace LockpickersGuide.Models
             {
                 return -1;
             }
-            
+
             return obj.DatabaseId.GetHashCode() ^
                 (obj.Name == null ? 0 : obj.Name.GetHashCode()) ^
                 (obj.Founded == null ? 0 : obj.Founded.GetHashCode()) ^

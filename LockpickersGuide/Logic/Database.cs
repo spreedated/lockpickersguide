@@ -1,12 +1,7 @@
 ﻿using LockpickersGuide.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Npgsql;
+using System.Collections.Generic;
 using static LockpickersGuide.Logic.Constants;
-using Serilog;
 
 namespace LockpickersGuide.Logic
 {

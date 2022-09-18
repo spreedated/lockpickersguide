@@ -15,6 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using static LockpickersGuide.Logic.Constants;
 
 namespace LockpickersGuide.Views
 {
@@ -111,6 +112,49 @@ namespace LockpickersGuide.Views
             {
                 this.BTN_Reset_Click(this, null);
             }
+        }
+
+        private void BTN_Add_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void BTN_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.DGV_Main.SelectedIndex <= -1)
+            {
+                return;
+            }
+
+            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, $"Are you sure you want to delete Belt \"{((Belt)this.DGV_Main.SelectedItem).Name}\"?")
+            {
+                Owner = Window.GetWindow(this)
+            };
+            w.ShowDialog();
+
+            if (w.BoxDialogResult == WND_DialogBox.BoxDialogResults.No)
+            {
+                return;
+            }
+            
+            Belt b = (Belt)this.DGV_Main.SelectedItem;
+            b.Delete();
+
+            Logic.Options.Instance.ForceDatabaseReload = true;
+            ObjectStorage.Belts.Clear();
+            Logic.Preload.FillObjectStorage<Belt>(ref ObjectStorage.Belts, () => Database.GetBelts(), CACHE_BELTS);
+            Logic.Options.Instance.ForceDatabaseReload = false;
+
+            this.Belts = new(ObjectStorage.Belts);
+            OnPropertyChanged(nameof(this.Belts));
+
+            this.DatagridBelts = new(ObjectStorage.Belts);
+            OnPropertyChanged(nameof(this.DatagridBelts));
+
+            this.ComboboxBelts = new(ObjectStorage.Belts);
+            this.ComboboxBelts.Insert(0, new() { Name = "Select Belt" });
+            this.ComboboxBelts.Insert(1, new() { Name = "---" });
+            OnPropertyChanged(nameof(this.ComboboxBelts));
         }
     }
 }

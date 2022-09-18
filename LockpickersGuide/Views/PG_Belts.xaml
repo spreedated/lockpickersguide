@@ -51,7 +51,7 @@
                 <ComboBox x:Name="CMB_Sortby" Width="193" Foreground="WhiteSmoke" ItemsSource="{Binding ComboboxBelts}" DisplayMemberPath="Name" Margin="0,0,20,0" SelectionChanged="CMB_SelectionChanged" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Height="32" Width="auto">
-                <Button Content="Add" Width="75" Margin="0,0,10,0" />
+                <Button Content="Add" Width="75" Margin="0,0,10,0" Click="BTN_Add_Click" />
                 <Button Content="Edit" Width="75" Margin="0,0,10,0">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatDarkBgButton}">
@@ -63,7 +63,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="Delete" Width="75">
+                <Button Content="Delete" Width="75" Click="BTN_Delete_Click">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatDarkBgButton}">
                             <Style.Triggers>
@@ -78,6 +78,12 @@
         </Grid>
         <Grid Width="auto" Margin="0,82,0,32" d:LayoutOverrides="Height" >
             <DataGrid x:Name="DGV_Main" Height="auto" Width="auto" ItemsSource="{Binding DatagridBelts}" SelectionMode="Single" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="DatabaseId" Visibility="Collapsed" Binding="{Binding DatabaseId}" />
                     <DataGridTemplateColumn Header="Image" Width="100">

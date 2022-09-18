@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LockpickersGuide.Logic;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -17,6 +18,19 @@ namespace LockpickersGuide.Models
                 this.Name == other.Name &&
                 this.Imagelink == other.Imagelink &&
                 this.Description == other.Description;
+        }
+
+        public bool Update()
+        {
+            return Database.UpdateBelt(this);
+        }
+        public bool Insert()
+        {
+            return Database.AddBelt(this);
+        }
+        public bool Delete()
+        {
+            return Database.DeleteBelt(this);
         }
     }
 

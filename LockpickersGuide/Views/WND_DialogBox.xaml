@@ -1,0 +1,24 @@
+﻿<Window x:Class="LockpickersGuide.Views.WND_DialogBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=local:WND_DialogBox}"
+        mc:Ignorable="d"
+        Title="WND_DialogBox" Height="80" Width="320" d:Height="160" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    <Border CornerRadius="20" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
+        <StackPanel Orientation="Vertical" Margin="10,10,10,10">
+            <StackPanel Orientation="Horizontal">
+                <Image />
+                <Label Content="{Binding DialogText}" d:Content="Are you sure you want to exit?" Margin="0,0,10,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding YesNoDialog}">
+                <Button Content="Yes" Margin="0,0,10,0" Click="BTN_Pressed"/>
+                <Button Content="No" Click="BTN_Pressed"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding OkayOnlyDialog}">
+                <Button Content="Okay" Click="BTN_Pressed"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

@@ -27,7 +27,7 @@ namespace LockpickersGuide.Logic
 
             Options.Initialize();
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
-
+            //Options.Instance.ForceDatabaseReload = true;
             if (!AreDatabaseCredentialsValid())
             {
                 return false;
@@ -75,7 +75,7 @@ namespace LockpickersGuide.Logic
             Variables.IsRedisAvailable = Cache.IsAvailable;
         }
 
-        private static void FillObjectStorage<T>(ref HashSetLockpicker<T> hs, Func<IEnumerable<T>> p, string cachekey) where T : IModelItem
+        public static void FillObjectStorage<T>(ref HashSetLockpicker<T> hs, Func<IEnumerable<T>> p, string cachekey) where T : IModelItem
         {
             if (Variables.IsRedisAvailable && !Options.Instance.ForceDatabaseReload)
             {

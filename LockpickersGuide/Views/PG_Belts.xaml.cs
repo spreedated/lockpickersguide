@@ -119,6 +119,11 @@ namespace LockpickersGuide.Views
             
         }
 
+        private void BTN_Edit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void BTN_Delete_Click(object sender, RoutedEventArgs e)
         {
             if (this.DGV_Main.SelectedIndex <= -1)
@@ -126,7 +131,7 @@ namespace LockpickersGuide.Views
                 return;
             }
 
-            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, $"Are you sure you want to delete Belt \"{((Belt)this.DGV_Main.SelectedItem).Name}\"?")
+            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, $"Are you sure you want to delete Belt \"{((Belt)this.DGV_Main.SelectedItem).Name}\"?", MahApps.Metro.IconPacks.PackIconMaterialDesignKind.Delete)
             {
                 Owner = Window.GetWindow(this)
             };

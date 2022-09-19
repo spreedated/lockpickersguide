@@ -4,19 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=local:WND_DialogBox}"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="WND_DialogBox" Height="80" Width="320" d:Height="160" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+        Title="WND_DialogBox" Height="95" MinWidth="320" d:Height="160" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}" SizeToContent="WidthAndHeight">
     <Border CornerRadius="20" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
+        
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
-            <StackPanel Orientation="Horizontal">
-                <Image />
-                <Label Content="{Binding DialogText}" d:Content="Are you sure you want to exit?" Margin="0,0,10,0" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <iconPacks:PackIconMaterialDesign Width="48" Height="48" Kind="{Binding DialogIcon}" Visibility="{Binding DialogIconVisibility}" Margin="0,0,10,0"/>
+                <Label x:Name="LBL_DialogText" Content="{Binding DialogText}" VerticalContentAlignment="Center" d:Content="Are you sure you want to exit?" Margin="0,0,10,0" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding YesNoDialog}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding YesNoDialog}">
                 <Button Content="Yes" Margin="0,0,10,0" Click="BTN_Pressed"/>
                 <Button Content="No" Click="BTN_Pressed"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding OkayOnlyDialog}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding OkayOnlyDialog}">
                 <Button Content="Okay" Click="BTN_Pressed"/>
             </StackPanel>
         </StackPanel>

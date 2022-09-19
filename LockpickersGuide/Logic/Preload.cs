@@ -77,6 +77,7 @@ namespace LockpickersGuide.Logic
 
         public static void FillObjectStorage<T>(ref HashSetLockpicker<T> hs, Func<IEnumerable<T>> p, string cachekey) where T : IModelItem
         {
+            hs.Clear();
             if (Variables.IsRedisAvailable && !Options.Instance.ForceDatabaseReload)
             {
                 var cache = RedisConnectorHelper.Connection.GetDatabase();
@@ -91,7 +92,13 @@ namespace LockpickersGuide.Logic
                 }
             }
 
-            Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Redis Cache miss");
+            if (!Options.Instance.ForceDatabaseReload)
+            {
+                Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Redis Cache miss");
+            }else
+            {
+                Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Force reload");
+            }
 
             foreach (T c in p().OrderBy(x => x.Name))
             {

@@ -121,7 +121,38 @@ namespace LockpickersGuide.Views
 
         private void BTN_Edit_Click(object sender, RoutedEventArgs e)
         {
+            if (this.DGV_Main.SelectedIndex <= -1)
+            {
+                return;
+            }
 
+            Belt b = (Belt)this.DGV_Main.SelectedItem;
+
+            CrudEdit c = new(b, new string[] { "databaseid" })
+            {
+                Owner = Window.GetWindow(this)
+            };
+            if ((bool)c.ShowDialog())
+            {
+                b = (Belt)c.Object;
+                b.Update();
+
+                Logic.Options.Instance.ForceDatabaseReload = true;
+                Logic.Preload.FillObjectStorage<Belt>(ref ObjectStorage.Belts, () => Database.GetBelts(), CACHE_BELTS);
+
+                this.Belts = new(ObjectStorage.Belts);
+                OnPropertyChanged(nameof(this.Belts));
+
+                this.DatagridBelts = new(ObjectStorage.Belts);
+                OnPropertyChanged(nameof(this.DatagridBelts));
+
+                this.ComboboxBelts = new(ObjectStorage.Belts);
+                this.ComboboxBelts.Insert(0, new() { Name = "Select Belt" });
+                this.ComboboxBelts.Insert(1, new() { Name = "---" });
+                OnPropertyChanged(nameof(this.ComboboxBelts));
+
+                Logic.Options.Instance.ForceDatabaseReload = true;
+            }
         }
 
         private void BTN_Delete_Click(object sender, RoutedEventArgs e)

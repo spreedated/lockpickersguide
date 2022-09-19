@@ -66,10 +66,11 @@ namespace LockpickersGuide.Logic
 
                 using (NpgsqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"UPDATE {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_BELTS} SET name=@name,imagelink=@imagelink,description=@desc;";
+                    cmd.CommandText = $"UPDATE {DB_DATABASE_LOCKPICKING}.{DB_SCHEMA_ATTRIBUTES}.{DB_TABLE_BELTS} SET name=@name,imagelink=@imagelink,description=@desc WHERE id = @id;";
                     cmd.Parameters.AddWithValue("@name", belt.Name);
                     cmd.Parameters.AddWithValue("@imagelink", belt.Imagelink);
                     cmd.Parameters.AddWithValue("@desc", belt.Description);
+                    cmd.Parameters.AddWithValue("@id", belt.DatabaseId);
 
                     return cmd.ExecuteNonQuery() == 1;
                 }

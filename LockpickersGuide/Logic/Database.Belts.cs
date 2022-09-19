@@ -40,7 +40,7 @@ namespace LockpickersGuide.Logic
             }
         }
 
-        public static bool AddBelt(Belt belt)
+        public static int AddBelt(Belt belt)
         {
             using (NpgsqlConnection conn = new(Options.Instance.DatabaseCredentials.ToString()))
             {
@@ -53,7 +53,9 @@ namespace LockpickersGuide.Logic
                     cmd.Parameters.AddWithValue("@imagelink", belt.Imagelink);
                     cmd.Parameters.AddWithValue("@desc", belt.Description);
 
-                    return cmd.ExecuteNonQuery() == 1;
+                    int databaseId = (int)cmd.ExecuteScalar();
+
+                    return databaseId;
                 }
             }
         }

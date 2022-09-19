@@ -55,7 +55,7 @@ namespace LockpickersGuide.Views
                 this.PNL_Elements.Children.Add(new UC_CrudElement()
                 {
                     ObjectName = p.Name,
-                    ObjectValue = p.GetValue(@object).ToString(),
+                    ObjectValue = p.GetValue(@object)?.ToString(),
                 });
             }
         }

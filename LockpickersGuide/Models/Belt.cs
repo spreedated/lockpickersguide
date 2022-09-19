@@ -24,7 +24,7 @@ namespace LockpickersGuide.Models
         {
             return Database.UpdateBelt(this);
         }
-        public bool Insert()
+        public int Insert()
         {
             return Database.AddBelt(this);
         }

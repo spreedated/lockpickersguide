@@ -22,7 +22,7 @@ namespace LockpickersGuide.Views
         {
             InitializeComponent();
             this.DataContext = new MainWindowViewModel();
-            this.Icon = new BitmapImage(new Uri("pack://application:,,,/LockpickersGuide;component/Ressources/icon.png"));
+            this.Icon = new BitmapImage(new Uri("pack://application:,,,/LockpickersGuide;component/Ressources/icon_white.png"));
             
             Logic.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(async () => { await Task.Delay(1500); FRM_Main.Navigate(new Uri("Views\\PG_Main.xaml", UriKind.Relative)); }); };
 

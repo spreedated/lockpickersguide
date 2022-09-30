@@ -20,10 +20,14 @@
 
   <ItemGroup>
     <None Remove="Ressources\icon.png" />
+    <None Remove="Ressources\icon.svg" />
+    <None Remove="Ressources\icon_white.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Ressources\icon.png" />
+    <Resource Include="Ressources\icon.svg" />
+    <Resource Include="Ressources\icon_white.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +38,7 @@
     <PackageReference Include="Npgsql" Version="6.0.7" />
     <PackageReference Include="Serilog" Version="2.12.0" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
+    <PackageReference Include="SharpVectors" Version="1.8.0" />
     <PackageReference Include="SharpVectors.Wpf" Version="1.8.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.66" />
   </ItemGroup>

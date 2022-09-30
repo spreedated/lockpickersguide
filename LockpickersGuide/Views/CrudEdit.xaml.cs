@@ -15,13 +15,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Reflection;
 using LockpickersGuide.Views.UC;
+using LockpickersGuide.ViewLogic;
 
 namespace LockpickersGuide.Views
 {
     /// <summary>
     /// Interaction logic for CrudEdit.xaml
     /// </summary>
-    public partial class CrudEdit : Window, INotifyPropertyChanged
+    public partial class CrudEdit : AdvancedWindow, INotifyPropertyChanged
     {
         private string _ClassName;
         public string ClassName

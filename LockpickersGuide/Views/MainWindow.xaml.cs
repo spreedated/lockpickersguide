@@ -1,4 +1,5 @@
 ﻿using LockpickersGuide.Logic;
+using LockpickersGuide.ViewLogic;
 using LockpickersGuide.ViewModels;
 using System;
 using System.ComponentModel;
@@ -13,15 +14,15 @@ namespace LockpickersGuide.Views
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : AdvancedWindow
     {
         public static MainWindowViewModel Instance { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new ViewModels.MainWindowViewModel();
-            this.Icon = new BitmapImage(new Uri("pack://application:,,,/LockpickersGuide;component/Ressources/2472420.png"));
+            this.DataContext = new MainWindowViewModel();
+            this.Icon = new BitmapImage(new Uri("pack://application:,,,/LockpickersGuide;component/Ressources/icon.png"));
             
             Logic.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(async () => { await Task.Delay(1500); FRM_Main.Navigate(new Uri("Views\\PG_Main.xaml", UriKind.Relative)); }); };
 

@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.IconPacks;
+﻿using LockpickersGuide.ViewLogic;
+using MahApps.Metro.IconPacks;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -11,7 +12,7 @@ namespace LockpickersGuide.Views
     /// <summary>
     /// Interaction logic for WND_DialogBox.xaml
     /// </summary>
-    public partial class WND_DialogBox : Window, INotifyPropertyChanged
+    public partial class WND_DialogBox : AdvancedWindow, INotifyPropertyChanged
     {
         public Visibility YesNoDialog { get; private set; } = Visibility.Collapsed;
         public Visibility OkayOnlyDialog { get; private set; } = Visibility.Collapsed;

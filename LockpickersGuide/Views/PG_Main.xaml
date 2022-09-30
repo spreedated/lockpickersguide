@@ -7,10 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1200"
       Title="PG_Main">
-
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto" Height="54">
-            <Image Source="/Ressources/2472420.png" Height="auto" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Image Source="/Ressources/icon.png" Height="auto" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Lockpickers Guide" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18pt" Foreground="LightGray" FontStyle="Normal" FontWeight="Bold" Margin="10,10,0,0"/>
         </StackPanel>
         <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="0,60,0,0" CornerRadius="10" Background="#111111" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">

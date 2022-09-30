@@ -19,11 +19,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Ressources\2472420.png" />
+    <None Remove="Ressources\icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Ressources\2472420.png" />
+    <Resource Include="Ressources\icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,5 +56,4 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-
 </Project>

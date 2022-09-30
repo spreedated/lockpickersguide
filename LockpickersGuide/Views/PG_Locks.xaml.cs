@@ -25,7 +25,6 @@ namespace LockpickersGuide.Views
     /// </summary>
     public partial class PG_Locks : LockpickerPage, INotifyPropertyChanged
     {
-        public float MainOpac { get; internal set; } = 1.0f;
         public ObservableCollection<Belt> ComboboxLocks { get; internal set; }
         public ObservableCollection<Belt> Locks { get; internal set; }
         public ObservableCollection<Belt> DatagridLocks { get; internal set; }

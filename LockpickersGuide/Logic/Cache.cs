@@ -37,7 +37,7 @@ namespace LockpickersGuide.Logic
         {
             IDatabase cache = RedisConnectorHelper.Connection.GetDatabase();
             Log.Debug($"[UpdateCache<{typeof(T).Name}>] Cache warming");
-            return cache.StringSet(key, JsonConvert.SerializeObject(itemDatastructure), expiry: new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1, 0, 0, 0) - DateTime.Now);
+            return cache.StringSet(key, JsonConvert.SerializeObject(itemDatastructure), expiry: DateTime.Now.AddDays(1).Date - DateTime.Now);
         }
 
         public static bool ClearEntireCache()

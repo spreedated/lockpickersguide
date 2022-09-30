@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LockpickersGuide.ViewLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace LockpickersGuide.Views
     /// <summary>
     /// Interaction logic for OV_Filter.xaml
     /// </summary>
-    public partial class OV_Filter : Window, INotifyPropertyChanged
+    public partial class OV_Filter : AdvancedWindow, INotifyPropertyChanged
     {
         public string WindowName { get; set; }
 

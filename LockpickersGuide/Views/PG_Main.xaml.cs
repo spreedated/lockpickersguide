@@ -21,7 +21,8 @@ namespace LockpickersGuide.Views
         {
             new PG_Brands(),
             new PG_CollectionLocks(),
-            new PG_Belts()
+            new PG_Belts(),
+            new PG_Locks()
         };
 
         private void BTN_Brand_Click(object sender, RoutedEventArgs e)
@@ -37,6 +38,11 @@ namespace LockpickersGuide.Views
         private void BTN_Belts_Click(object sender, RoutedEventArgs e)
         {
             this.MainFrame.Navigate(pages.FirstOrDefault(x => x.Pagename.Equals("belts", StringComparison.InvariantCultureIgnoreCase)));
+        }
+        
+        private void BTN_Locks_Click(object sender, RoutedEventArgs e)
+        {
+            this.MainFrame.Navigate(pages.FirstOrDefault(x => x.Pagename.Equals("locks", StringComparison.InvariantCultureIgnoreCase)));
         }
     }
 }

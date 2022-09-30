@@ -27,16 +27,6 @@ namespace LockpickersGuide.Views
         public ObservableCollection<Belt> ComboboxBelts { get; internal set; }
         public ObservableCollection<Belt> Belts { get; internal set; }
         public ObservableCollection<Belt> DatagridBelts { get; internal set; }
-        public Belt DummyBelt
-        {
-            get
-            {
-                return new()
-                {
-                    Name = "Nothing"
-                };
-            }
-        }
         public PG_Belts()
         {
             InitializeComponent();

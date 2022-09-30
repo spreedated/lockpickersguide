@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=local:WND_DialogBox}"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="WND_DialogBox" Height="95" MinWidth="320" d:Height="160" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}" SizeToContent="WidthAndHeight">
-    <Border CornerRadius="20" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
+        Title="WND_DialogBox" Height="95" MinWidth="320" d:Height="160" WindowStartupLocation="CenterOwner" MouseDown="Window_MouseDown" Style="{StaticResource WindowStyle}">
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <iconPacks:PackIconMaterialDesign Width="48" Height="48" Kind="{Binding DialogIcon}" Visibility="{Binding DialogIconVisibility}" Margin="0,0,10,0"/>
@@ -21,5 +20,4 @@
                 <Button Content="Okay" Click="BTN_Pressed"/>
             </StackPanel>
         </StackPanel>
-    </Border>
 </Window>

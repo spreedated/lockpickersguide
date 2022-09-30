@@ -15,7 +15,8 @@
         </StackPanel>
         <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="0,60,0,0" CornerRadius="10" Background="#111111" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
             <StackPanel>
-                <Button MaxWidth="120" Content="Brands" Margin="0,10,0,10" Click="BTN_Brand_Click"/>
+                <Button MaxWidth="120" Content="Locks" Margin="0,10,0,10" Click="BTN_Locks_Click"/>
+                <Button MaxWidth="120" Content="Brands" Margin="0,0,0,10" Click="BTN_Brand_Click"/>
                 <Button MaxWidth="120" Content="Cores" Margin="0,0,0,10" IsEnabled="False"/>
                 <Button MaxWidth="120" Content="Countries" Margin="0,0,0,10" IsEnabled="False"/>
                 <Button MaxWidth="120" Content="Locktypes" Margin="0,0,0,10" IsEnabled="False"/>

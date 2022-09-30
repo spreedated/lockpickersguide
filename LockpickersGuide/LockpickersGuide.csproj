@@ -19,18 +19,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Ressources\icon.ico" />
     <None Remove="Ressources\icon.png" />
     <None Remove="Ressources\icon.svg" />
+    <None Remove="Ressources\icon_white.ico" />
     <None Remove="Ressources\icon_white.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Ressources\icon.ico" />
     <Resource Include="Ressources\icon.png" />
     <Resource Include="Ressources\icon.svg" />
+    <Resource Include="Ressources\icon_white.ico" />
     <Resource Include="Ressources\icon_white.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="4.11.0" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />

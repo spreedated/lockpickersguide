@@ -1,4 +1,5 @@
 ﻿using LockpickersGuide.PresentiationModels;
+using LockpickersGuide.ViewModels;
 using System;
 using System.Linq;
 using System.Windows;
@@ -14,7 +15,7 @@ namespace LockpickersGuide.Views
         public PG_Main()
         {
             InitializeComponent();
-            this.DataContext = this;
+            this.DataContext = new PG_MainViewModel();
         }
 
         readonly LockpickerPage[] pages = new LockpickerPage[]

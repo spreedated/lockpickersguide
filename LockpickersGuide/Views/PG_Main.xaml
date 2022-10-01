@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:LockpickersGuide.Views"
+      xmlns:vm="clr-namespace:LockpickersGuide.ViewModels"
+      xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=vm:PG_MainViewModel}"
       xmlns:svgc="clr-namespace:LockpickersGuide.ViewLogic"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1200"
@@ -14,7 +15,7 @@
                 <svgc:SvgViewboxEx Source="/Ressources/icon.svg" Fill="{StaticResource MaterialDesignTextAreaBorder}"/>
             </Border>
             <Image Source="/Ressources/icon.png" Height="auto" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/>
-            <Label Content="Lockpickers Guide" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18pt" Foreground="LightGray" FontStyle="Normal" FontWeight="Bold" Margin="10,10,0,0"/>
+            <Label Content="{Binding Title}" d:Content="My title here" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18pt" Foreground="LightGray" FontStyle="Normal" FontWeight="Bold" Margin="10,10,0,0"/>
         </StackPanel>
         <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="0,60,0,0" CornerRadius="10" Background="#111111" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
             <StackPanel>

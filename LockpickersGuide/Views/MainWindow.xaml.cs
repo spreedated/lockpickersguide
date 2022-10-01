@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace LockpickersGuide.Views
 {
@@ -16,7 +17,7 @@ namespace LockpickersGuide.Views
     /// </summary>
     public partial class MainWindow : AdvancedWindow
     {
-        public static MainWindowViewModel Instance { get; private set; }
+        public static MainWindowViewModel ViewModelInstance { get; private set; }
 
         public MainWindow()
         {
@@ -26,10 +27,10 @@ namespace LockpickersGuide.Views
             
             Logic.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(async () => { await Task.Delay(1500); FRM_Main.Navigate(new Uri("Views\\PG_Main.xaml", UriKind.Relative)); }); };
 
-            Instance = (MainWindowViewModel)this.DataContext;
+            ViewModelInstance = (MainWindowViewModel)this.DataContext;
         }
 
-        internal void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {

@@ -8,6 +8,8 @@
     <UseWPF>true</UseWPF>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>nexn.snk</AssemblyOriginatorKeyFile>
+    <Authors>Dante Wackermann</Authors>
+    <AssemblyTitle>Lockpickers Guide</AssemblyTitle>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

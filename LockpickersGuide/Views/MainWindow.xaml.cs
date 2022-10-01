@@ -28,7 +28,7 @@ namespace LockpickersGuide.Views
             this.DataContext = new MainWindowViewModel();
             this.Icon = new BitmapImage(new Uri("pack://application:,,,/LockpickersGuide;component/Ressources/icon_white.png"));
             
-            Logic.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(async () => { await Task.Delay(1500); this.LoadPages(); }); };
+            Logic.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(async () => { await Task.Delay(1500); this.LoadPages(); ViewModelInstance.ShowLoadingFrame = false; ViewModelInstance.ShowContent = true; }); };
 
             ViewModelInstance = (MainWindowViewModel)this.DataContext;
         }

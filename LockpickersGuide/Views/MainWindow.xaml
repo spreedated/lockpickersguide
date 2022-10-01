@@ -34,14 +34,15 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="54" Margin="10,0,0,0" Grid.Row="1">
+        <Frame d:Visibility="Visible" Visibility="{Binding ShowLoadingFrame, Converter={c:BoolVisibilityConverter}}" Source="Preload.xaml" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.RowSpan="2" Margin="0,0,0,20" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="54" Margin="10,0,0,0" Grid.Row="1" Visibility="{Binding ShowContent, Converter={c:BoolVisibilityConverter}}">
             <Border CornerRadius="10" Background="{StaticResource MaterialDesignTextFieldBoxBackground}" Padding="7">
                 <svgc:SvgViewboxEx Source="/Ressources/icon.svg" Fill="{StaticResource MaterialDesignTextAreaBorder}"/>
             </Border>
             <Image Source="/Ressources/icon.png" Height="auto" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/>
             <Label Content="{Binding Title}" d:Content="My title here" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18pt" Foreground="LightGray" FontStyle="Normal" FontWeight="Bold" Margin="10,7,0,0"/>
         </StackPanel>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Visibility="{Binding ShowContent, Converter={c:BoolVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="190" />
                 <ColumnDefinition/>
@@ -57,7 +58,7 @@
                     <Button MaxWidth="120" Content="Belts" Margin="0,0,0,10" IsEnabled="True" Click="BTN_Belts_Click"/>
                 </StackPanel>
             </Border>
-            <Frame x:Name="FRM_Main" Source="Preload.xaml" Width="auto" Height="auto" Margin="10,10,10,10" NavigationUIVisibility="Hidden" Grid.Column="1" />
+            <Frame x:Name="FRM_Main" Width="auto" Height="auto" Margin="10,10,10,10" NavigationUIVisibility="Hidden" Grid.Column="1" />
         </Grid>
         <Border CornerRadius="20" BorderThickness="0" Opacity="0.6" Background="#000011" Visibility="{Binding GreyOutVisibility}" d:Visibility="Hidden" />
     </Grid>

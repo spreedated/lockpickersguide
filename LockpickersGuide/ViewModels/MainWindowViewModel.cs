@@ -22,6 +22,33 @@ namespace LockpickersGuide.ViewModels
                 return Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyTitleAttribute>().Title;
             }
         }
+        private bool _ShowLoadingFrame = true;
+        public bool ShowLoadingFrame
+        {
+            get
+            {
+                return this._ShowLoadingFrame;
+            }
+            set
+            {
+                this._ShowLoadingFrame = value;
+                base.OnPropertyChanged(nameof(this.ShowLoadingFrame));
+            }
+        }
+        private bool _ShowContent;
+        public bool ShowContent
+        {
+            get
+            {
+                return this._ShowContent;
+            }
+            set
+            {
+                this._ShowContent = value;
+                base.OnPropertyChanged(nameof(this.ShowContent));
+            }
+        }
+
         public ICommand WindowClose
         {
             get

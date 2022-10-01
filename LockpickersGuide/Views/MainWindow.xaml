@@ -13,7 +13,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
-            <RowDefinition Height="54"/>
+            <RowDefinition Height="64"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <tb:TaskbarIcon IconSource="/ressources/icon_white.ico" Visibility="Visible" MenuActivation="LeftOrRightClick" PopupActivation="DoubleClick" />
@@ -35,7 +35,7 @@
             </Grid>
         </Border>
         <Frame d:Visibility="Visible" Visibility="{Binding ShowLoadingFrame, Converter={c:BoolVisibilityConverter}}" Source="Preload.xaml" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.RowSpan="2" Margin="0,0,0,20" />
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="54" Margin="10,0,0,0" Grid.Row="1" Visibility="{Binding ShowContent, Converter={c:BoolVisibilityConverter}}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="54" Margin="10,10,0,0" Grid.Row="1" Visibility="{Binding ShowContent, Converter={c:BoolVisibilityConverter}}">
             <Border CornerRadius="10" Background="{StaticResource MaterialDesignTextFieldBoxBackground}" Padding="7">
                 <svgc:SvgViewboxEx Source="/Ressources/icon.svg" Fill="{StaticResource MaterialDesignTextAreaBorder}"/>
             </Border>
@@ -60,6 +60,6 @@
             </Border>
             <Frame x:Name="FRM_Main" Width="auto" Height="auto" Margin="10,10,10,10" NavigationUIVisibility="Hidden" Grid.Column="1" />
         </Grid>
-        <Border CornerRadius="20" BorderThickness="0" Opacity="0.6" Background="#000011" Visibility="{Binding GreyOutVisibility}" d:Visibility="Hidden" />
+        <Border CornerRadius="20" BorderThickness="0" Opacity="0.6" Background="#000011" Visibility="{Binding GreyOut, Converter={c:BoolVisibilityConverter}}" d:Visibility="Hidden" Grid.RowSpan="3" />
     </Grid>
 </c:AdvancedWindow>

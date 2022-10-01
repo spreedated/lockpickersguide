@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:c="clr-namespace:LockpickersGuide.ViewLogic"
-        xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=local:OV_Filter}"
+        xmlns:vm="clr-namespace:LockpickersGuide.ViewModels"
+        xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=vm:OV_FilterViewModel}"
         mc:Ignorable="d"
         Title="OV_Filter" Height="450" Width="800" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" TextElement.Foreground="{DynamicResource MaterialDesignBody}" SizeToContent="WidthAndHeight">
     <Border CornerRadius="20" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">

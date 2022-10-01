@@ -52,8 +52,8 @@
                 <Button Margin="10,0,20,0" Click="BTN_Filter_Click">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon  Kind="Filter" Height="24" Width="24"/>
-                            <TextBlock Text="Apply filter" Margin="5,0,0,0"/>
+                            <materialDesign:PackIcon  Kind="FilterOff" Height="24" Width="24" Margin="-5,0,0,0"/>
+                            <TextBlock Text="Filter" Margin="5,2,0,0"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>

@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace LockpickersGuide.ViewLogic
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged, IShadow
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
@@ -29,23 +29,18 @@ namespace LockpickersGuide.ViewLogic
             }
         }
 
-        private Visibility _GreyOutVisibility = Visibility.Collapsed;
-        public Visibility GreyOutVisibility
+        private bool _GreyOut = false;
+        public bool GreyOut
         {
             get
             {
-                return _GreyOutVisibility;
+                return _GreyOut;
             }
             set
             {
-                _GreyOutVisibility = value;
-                this.OnPropertyChanged(nameof(this.GreyOutVisibility));
+                _GreyOut = value;
+                this.OnPropertyChanged(nameof(this.GreyOut));
             }
-        }
-
-        public void GreyOut(bool visible = true)
-        {
-            this.GreyOutVisibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public static IEnumerable<T> FindVisualChilds<T>(DependencyObject depObj) where T : DependencyObject

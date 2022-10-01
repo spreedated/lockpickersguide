@@ -1,4 +1,5 @@
 ﻿using LockpickersGuide.ViewLogic;
+using LockpickersGuide.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,17 +21,16 @@ namespace LockpickersGuide.Views
     /// <summary>
     /// Interaction logic for OV_Filter.xaml
     /// </summary>
-    public partial class OV_Filter : AdvancedWindow, INotifyPropertyChanged
+    public partial class OV_Filter : AdvancedWindow
     {
-        public string WindowName { get; set; }
-
-        public OV_Filter(string windowName)
+        public OV_Filter(string windowName, Window window = null)
         {
             InitializeComponent();
-            this.DataContext = this;
-            this.WindowName = windowName;
-
-            this.OnPropertyChanged(nameof(this.WindowName));
+            this.DataContext = new OV_FilterViewModel()
+            {
+                WindowName = windowName
+            };
+            this.Owner = window;
         }
 
         internal void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -44,12 +44,6 @@ namespace LockpickersGuide.Views
         private void BTN_Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

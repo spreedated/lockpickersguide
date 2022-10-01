@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 
 namespace LockpickersGuide.ViewLogic
 {
@@ -8,7 +9,41 @@ namespace LockpickersGuide.ViewLogic
         public new bool? ShowDialog()
         {
             this.IsModal = true;
+            this.ConfigureModal();
             return base.ShowDialog();
+        }
+
+        private void ConfigureModal()
+        {
+            this.ShowInTaskbar = false;
+            this.LocationChanged += this.Window_LocationChanged;
+            this.Loaded += this.Window_Loaded;
+            this.Closing += this.Window_Closing;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (this.IsModal && this.Owner != null && this.Owner.DataContext is IShadow)
+            {
+                ((IShadow)((AdvancedWindow)this.Owner).DataContext).GreyOut = true;
+            }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (this.IsModal && this.Owner != null && this.Owner.DataContext is IShadow)
+            {
+                ((IShadow)((AdvancedWindow)this.Owner).DataContext).GreyOut = false;
+            }
+        }
+
+        private void Window_LocationChanged(object sender, System.EventArgs e)
+        {
+            if (this.IsModal)
+            {
+                this.Owner.Left = (this.Left + (this.Width / 2)) - (this.Owner.Width / 2);
+                this.Owner.Top = (this.Top + (this.Height / 2)) - (this.Owner.Height / 2);
+            }
         }
     }
 }

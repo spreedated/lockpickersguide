@@ -217,11 +217,11 @@ namespace LockpickersGuide.Views
             //this.OnPropertyChanged(nameof(this.MainOpac));
 
             //MainWindow.Instance.Opac = 0.1f;
-            MainWindow.ViewModelInstance.GreyOut(true);
+            //MainWindow.ViewModelInstance.GreyOut = true;
 
-            new OV_Filter("Filters") { Owner = Window.GetWindow(this) }.ShowDialog();
+            new OV_Filter("Filters", Window.GetWindow(this)).ShowDialog();
 
-            MainWindow.ViewModelInstance.GreyOut(false);
+            //MainWindow.ViewModelInstance.GreyOut = false;
 
             //MainWindow.Instance.Opac = 1.0f;
             //this.MainOpac = 1.0f;

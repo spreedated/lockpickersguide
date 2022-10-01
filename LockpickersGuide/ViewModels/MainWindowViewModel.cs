@@ -2,11 +2,14 @@
 
 using LockpickersGuide.ViewLogic;
 using LockpickersGuide.Views;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -48,6 +51,19 @@ namespace LockpickersGuide.ViewModels
                 base.OnPropertyChanged(nameof(this.ShowContent));
             }
         }
+        private PackIconKind _ToolbarMaximizeIcon = PackIconKind.Fullscreen;
+        public PackIconKind ToolbarMaximizeIcon
+        {
+            get
+            {
+                return this._ToolbarMaximizeIcon;
+            }
+            set
+            {
+                this._ToolbarMaximizeIcon = value;
+                base.OnPropertyChanged(nameof(this.ToolbarMaximizeIcon));
+            }
+        }
 
         public ICommand WindowClose
         {
@@ -66,12 +82,12 @@ namespace LockpickersGuide.ViewModels
                     WindowState s = w.WindowState;
                     if (s == WindowState.Normal)
                     {
-                        FindVisualChilds<Button>(w).FirstOrDefault(x=> x.Name.StartsWith("BTN_Maxi")).Content = "⧉";
+                        this.ToolbarMaximizeIcon = PackIconKind.FullscreenExit;
                         w.WindowState = WindowState.Maximized;
                     }
                     if (s == WindowState.Maximized)
                     {
-                        FindVisualChilds<Button>(w).FirstOrDefault(x => x.Name.StartsWith("BTN_Maxi")).Content = "□";
+                        this.ToolbarMaximizeIcon = PackIconKind.Fullscreen;
                         w.WindowState = WindowState.Normal;
                     }
                 });
@@ -82,6 +98,13 @@ namespace LockpickersGuide.ViewModels
             get
             {
                 return new RelayCommand((sender) => { ((Window)sender).WindowState = WindowState.Minimized; });
+            }
+        }
+        public ICommand ToolbarOpenGithub
+        {
+            get
+            {
+                return new RelayCommand((sender) => { Process.Start(new ProcessStartInfo("https://github.com/spreedated/lockpickersguide") { UseShellExecute = true }); });
             }
         }
     }

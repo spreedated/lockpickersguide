@@ -8,6 +8,8 @@
         xmlns:local="clr-namespace:LockpickersGuide" d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         xmlns:vm="clr-namespace:LockpickersGuide.ViewModels"
         xmlns:svgc="clr-namespace:LockpickersGuide.ViewLogic"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:elems="clr-namespace:LockpickersGuide.Views.Elements"
         mc:Ignorable="d"
         Title="{Binding Title}" x:Name="TheWindow" MinHeight="620" Height="620" MinWidth="600" Width="1200" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown" Style="{StaticResource MainWindowStyle}">
     <Grid>
@@ -27,10 +29,13 @@
                     <svgc:SvgViewboxEx Source="/Ressources/icon.svg" Fill="{StaticResource MaterialDesignTextAreaBorder}" Height="{Binding ElementName=WindowBar, Path=Height, Converter={c:SubtractConverter Value=4}}" Width="{Binding ElementName=WindowBar, Path=Width, Converter={c:SubtractConverter Value=4}}"/>
                     <Label Content="{Binding Title}" d:Content="My title here"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                    <Button Width="20" Height="20" Background="Transparent" BorderThickness="0" Padding="0" Content="_" Command="{Binding WindowMinimize}" CommandParameter="{Binding ElementName=TheWindow}"/>
-                    <Button Width="20" Height="20" Background="Transparent" BorderThickness="0" Padding="0" Content="□" Command="{Binding WindowMaximize}" CommandParameter="{Binding ElementName=TheWindow}" x:Name="BTN_Maximize"/>
-                    <Button Width="20" Height="20" Background="Transparent" BorderThickness="0" Padding="0" Content="🗙" Command="{Binding WindowClose}" CommandParameter="{Binding ElementName=TheWindow}"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,1,0">
+                    <elems:ToolbarButton Kind="Cog" Foreground="#888" Margin="0,0,5,0"/>
+                    <elems:ToolbarButton Kind="Github" Foreground="#888" SomeCommand="{Binding ToolbarOpenGithub}"/>
+                    <Path Data="M150 260C155.5228 260 160 255.5228 160 250L160 50C160 44.478 155.5228 40 150 40C144.4772 40 140 44.478 140 50L140 250C140 255.5228 144.4772 260 150 260z" Height="16" Margin="10,0,10,0" StrokeThickness="0.1" Stretch="Uniform" Stroke="WhiteSmoke" />
+                    <elems:ToolbarButton Kind="Minus" SomeCommand="{Binding WindowMinimize}" CommandParameter="{Binding ElementName=TheWindow}" InnerMargin="0,5,0,0" InnerWidth="18"/>
+                    <elems:ToolbarButton d:Kind="Fullscreen" Kind="{Binding ToolbarMaximizeIcon}" SomeCommand="{Binding WindowMaximize}" CommandParameter="{Binding ElementName=TheWindow}"/>
+                    <elems:ToolbarButton Kind="Cross" SomeCommand="{Binding WindowClose}" CommandParameter="{Binding ElementName=TheWindow}" Foreground="#aa0000"/>
                 </StackPanel>
             </Grid>
         </Border>

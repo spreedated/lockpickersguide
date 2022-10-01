@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="LockpickersGuide.Views.Elements.ToolbarButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LockpickersGuide.Views.Elements" d:DataContext="{d:DesignInstance Type=local:ToolbarButton}"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="20" d:DesignWidth="20" x:Name="me">
+    <Grid>
+        <Button Width="20" Height="20" BorderThickness="0" Padding="0" Foreground="{Binding Foreground, ElementName=me}" Command="{Binding SomeCommand, ElementName=me}" CommandParameter="{Binding CommandParameter, ElementName=me}">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatDarkButton}" />
+            </Button.Style>
+            <Button.Content>
+                <Grid>
+                    <materialDesign:PackIcon Kind="{Binding Kind, ElementName=me}" Height="{Binding InnerHeight, ElementName=me}" Width="{Binding InnerWidth, ElementName=me}" Margin="{Binding InnerMargin, ElementName=me}"/>
+                </Grid>
+            </Button.Content>
+        </Button>
+    </Grid>
+</UserControl>

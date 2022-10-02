@@ -26,7 +26,6 @@ namespace LockpickersGuide.Views
         {
             InitializeComponent();
             this.DataContext = new MainWindowViewModel();
-            this.Icon = new BitmapImage(new Uri("pack://application:,,,/LockpickersGuide;component/Ressources/icon_white.png"));
             
             Logic.Preload.PreloadComplete += (o, e) => { this.Dispatcher.Invoke(async () => { await Task.Delay(1500); this.LoadPages(); ViewModelInstance.ShowLoadingFrame = false; ViewModelInstance.ShowContent = true; }); };
 
@@ -48,29 +47,29 @@ namespace LockpickersGuide.Views
             this.pages.Add(new PG_Belts());
             this.pages.Add(new PG_Locks());
 
-            FRM_Main.Navigate(this.pages.FirstOrDefault(x=>x.Pagename == "CollectionLocks"));
+            FRM_Main.Switch(this.pages, "locks");
         }
 
         private readonly List<LockpickerPage> pages = new();
 
         private void BTN_Brand_Click(object sender, RoutedEventArgs e)
         {
-            this.FRM_Main.Navigate(pages.FirstOrDefault(x => x.Pagename.Equals("brands", StringComparison.InvariantCultureIgnoreCase)));
+            FRM_Main.Switch(this.pages, "brands");
         }
 
         private void BTN_CollectionLocks_Click(object sender, RoutedEventArgs e)
         {
-            this.FRM_Main.Navigate(pages.FirstOrDefault(x => x.Pagename.Equals("collectionLocks", StringComparison.InvariantCultureIgnoreCase)));
+            FRM_Main.Switch(this.pages, "collectionLocks");
         }
 
         private void BTN_Belts_Click(object sender, RoutedEventArgs e)
         {
-            this.FRM_Main.Navigate(pages.FirstOrDefault(x => x.Pagename.Equals("belts", StringComparison.InvariantCultureIgnoreCase)));
+            FRM_Main.Switch(this.pages, "belts");
         }
 
         private void BTN_Locks_Click(object sender, RoutedEventArgs e)
         {
-            this.FRM_Main.Navigate(pages.FirstOrDefault(x => x.Pagename.Equals("locks", StringComparison.InvariantCultureIgnoreCase)));
+            FRM_Main.Switch(this.pages, "locks");
         }
     }
 }

@@ -11,7 +11,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:elems="clr-namespace:LockpickersGuide.Views.Elements"
         mc:Ignorable="d"
-        Title="{Binding Title}" x:Name="TheWindow" MinHeight="620" Height="620" MinWidth="600" Width="1200" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown" Style="{StaticResource MainWindowStyle}">
+        Title="{Binding Title}" x:Name="TheWindow" MinHeight="620" Height="620" MinWidth="600" Width="1200" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown" Style="{StaticResource MainWindowStyle}" Icon="../ressources/icon_white.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>

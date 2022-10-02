@@ -13,6 +13,7 @@ using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace LockpickersGuide.ViewModels
 {
@@ -71,8 +72,11 @@ namespace LockpickersGuide.ViewModels
             {
                 return new RelayCommand((sender) =>
                 {
-                    WND_DialogBox d = new(WND_DialogBox.DialogStyles.YesNo, "Are you sure you want to exit?", PackIconKind.Cross);
-                    d.Owner = (Window)sender;
+                    WND_DialogBox d = new(WND_DialogBox.DialogStyles.YesNo, "Are you sure you want to exit?", PackIconKind.Cross)
+                    {
+                        Owner = (Window)sender,
+                        DialogIconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#550000")
+                    };
                     d.ShowDialog();
                     if (d.BoxDialogResult == WND_DialogBox.BoxDialogResults.Yes)
                     {

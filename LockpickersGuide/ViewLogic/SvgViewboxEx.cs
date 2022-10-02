@@ -3,6 +3,7 @@ using SharpVectors.Runtime;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows;
+using LockpickersGuide.Logic;
 
 namespace LockpickersGuide.ViewLogic
 {
@@ -43,7 +44,7 @@ namespace LockpickersGuide.ViewLogic
                     BindingOperations.SetBinding(geometryDrawing, GeometryDrawing.BrushProperty, brush);
 
                     // svg stroke color - translated to a geometry.Pen.Brush
-                    if (geometryDrawing.Pen != null)
+                    if (geometryDrawing.Pen.IsSet())
                     {
                         var stroke = new Binding(nameof(Stroke))
                         {

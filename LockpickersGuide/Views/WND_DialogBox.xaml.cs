@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace LockpickersGuide.Views
 {
@@ -15,6 +16,7 @@ namespace LockpickersGuide.Views
     /// </summary>
     public partial class WND_DialogBox : AdvancedWindow, INotifyPropertyChanged
     {
+        public Brush DialogIconForeground { get; set; } = Brushes.WhiteSmoke;
         public Visibility YesNoDialog { get; private set; } = Visibility.Collapsed;
         public Visibility OkayOnlyDialog { get; private set; } = Visibility.Collapsed;
         public BoxDialogResults BoxDialogResult { get; private set; }

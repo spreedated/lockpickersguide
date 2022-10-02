@@ -1,4 +1,5 @@
 ﻿
+using LockpickersGuide.Logic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -15,7 +16,7 @@ namespace LockpickersGuide.Models
         {
             get
             {
-                return this.Founded != null ? DateTime.Now.Year - this.Founded : null;
+                return this.Founded.IsSet() ? DateTime.Now.Year - this.Founded : null;
             }
         }
         public string City { get; set; }

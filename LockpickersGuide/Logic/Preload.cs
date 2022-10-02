@@ -83,7 +83,7 @@ namespace LockpickersGuide.Logic
                 var cache = RedisConnectorHelper.Connection.GetDatabase();
                 string json = cache.StringGet(cachekey).ToString();
 
-                if (json != null && json.Length > 0)
+                if (json.IsSet() && json.Length > 0)
                 {
                     Log.Debug($"[Preload][FillObjectStorage<{typeof(T).Name}>] Redis Cache hit");
                     hs = JsonConvert.DeserializeObject<HashSetLockpicker<T>>(json);

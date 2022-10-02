@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using LockpickersGuide.Logic;
+using System.ComponentModel;
 using System.Windows;
 
 namespace LockpickersGuide.ViewLogic
@@ -23,7 +24,7 @@ namespace LockpickersGuide.ViewLogic
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (this.IsModal && this.Owner != null && this.Owner.DataContext is IShadow)
+            if (this.IsModal && this.Owner.IsSet() && this.Owner.DataContext is IShadow)
             {
                 ((IShadow)((AdvancedWindow)this.Owner).DataContext).GreyOut = true;
             }
@@ -31,7 +32,7 @@ namespace LockpickersGuide.ViewLogic
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (this.IsModal && this.Owner != null && this.Owner.DataContext is IShadow)
+            if (this.IsModal && this.Owner.IsSet() && this.Owner.DataContext is IShadow)
             {
                 ((IShadow)((AdvancedWindow)this.Owner).DataContext).GreyOut = false;
             }
@@ -39,7 +40,7 @@ namespace LockpickersGuide.ViewLogic
 
         private void Window_LocationChanged(object sender, System.EventArgs e)
         {
-            if (this.IsModal && this.Owner != null)
+            if (this.IsModal && this.Owner.IsSet())
             {
                 this.Owner.Left = (this.Left + (this.Width / 2)) - (this.Owner.Width / 2);
                 this.Owner.Top = (this.Top + (this.Height / 2)) - (this.Owner.Height / 2);

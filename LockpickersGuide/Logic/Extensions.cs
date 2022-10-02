@@ -2,6 +2,11 @@
 {
     internal static class Extensions
     {
+        public static bool IsSet(this object s)
+        {
+            return s != null;
+        }
+
         public static bool IsSet(this string s)
         {
             return s != null && s.Length > 0;

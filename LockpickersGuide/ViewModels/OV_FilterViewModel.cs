@@ -9,17 +9,17 @@ namespace LockpickersGuide.ViewModels
 {
     public class OV_FilterViewModel : ViewModelBase
     {
-        private string _WindowName;
-        public string WindowName
+        private string _WindowTitle;
+        public string WindowTitle
         {
             get
             {
-                return this._WindowName;
+                return this._WindowTitle;
             }
             set
             {
-                this._WindowName = value;
-                base.OnPropertyChanged(nameof(this.WindowName));
+                this._WindowTitle = value;
+                base.OnPropertyChanged(nameof(this.WindowTitle));
             }
         }
     }

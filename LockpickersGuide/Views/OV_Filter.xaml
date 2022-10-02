@@ -11,7 +11,7 @@
     <Border CornerRadius="20" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2">
         <StackPanel x:Name="PNL_Main" Orientation="Vertical" Margin="10,10,10,10">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <Label d:Content="Some Title here" Content="{Binding WindowName}" FontSize="28" FontWeight="Bold" />
+                <Label d:Content="Some Title here" Content="{Binding WindowTitle}" FontSize="28" FontWeight="Bold" />
             </StackPanel>
             <StackPanel x:Name="PNL_Elements" Orientation="Vertical" Margin="0,0,0,10"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

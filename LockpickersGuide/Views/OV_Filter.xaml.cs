@@ -28,7 +28,7 @@ namespace LockpickersGuide.Views
             InitializeComponent();
             this.DataContext = new OV_FilterViewModel()
             {
-                WindowName = windowName
+                WindowTitle = windowName
             };
             this.Owner = window;
         }

@@ -1,5 +1,6 @@
 ﻿using LockpickersGuide.ViewLogic;
 using MahApps.Metro.IconPacks;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -17,7 +18,7 @@ namespace LockpickersGuide.Views
         public Visibility YesNoDialog { get; private set; } = Visibility.Collapsed;
         public Visibility OkayOnlyDialog { get; private set; } = Visibility.Collapsed;
         public BoxDialogResults BoxDialogResult { get; private set; }
-        public PackIconMaterialDesignKind DialogIcon { get; private set; }
+        public PackIconKind DialogIcon { get; private set; } = PackIconKind.None;
         public Visibility DialogIconVisibility { get; private set; } = Visibility.Collapsed;
         public string DialogText { get; private set; }
         public enum DialogStyles
@@ -45,12 +46,12 @@ namespace LockpickersGuide.Views
             }
         }
 
-        public WND_DialogBox(DialogStyles dialogStyle, string dialogText, PackIconMaterialDesignKind icon = PackIconMaterialDesignKind.None)
+        public WND_DialogBox(DialogStyles dialogStyle, string dialogText, PackIconKind icon = PackIconKind.None)
         {
             InitializeComponent();
             this.DataContext = this;
 
-            if (icon != PackIconMaterialDesignKind.None)
+            if (icon != PackIconKind.None)
             {
                 this.DialogIconVisibility = Visibility.Visible;
                 this.DialogIcon = icon;

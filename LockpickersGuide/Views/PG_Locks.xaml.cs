@@ -17,6 +17,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static LockpickersGuide.Logic.Constants;
+using MaterialDesignThemes.Wpf;
 
 namespace LockpickersGuide.Views
 {
@@ -180,7 +181,7 @@ namespace LockpickersGuide.Views
                 return;
             }
 
-            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, $"Are you sure you want to delete Belt \"{((Belt)this.DGV_Main.SelectedItem).Name}\"?", MahApps.Metro.IconPacks.PackIconMaterialDesignKind.Delete)
+            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, $"Are you sure you want to delete Belt \"{((Belt)this.DGV_Main.SelectedItem).Name}\"?", PackIconKind.Delete)
             {
                 Owner = Window.GetWindow(this)
             };

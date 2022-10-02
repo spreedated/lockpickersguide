@@ -69,7 +69,16 @@ namespace LockpickersGuide.ViewModels
         {
             get
             {
-                return new RelayCommand((sender) => { ((Window)sender).Close(); });
+                return new RelayCommand((sender) =>
+                {
+                    WND_DialogBox d = new(WND_DialogBox.DialogStyles.YesNo, "Are you sure you want to exit?", PackIconKind.Cross);
+                    d.Owner = (Window)sender;
+                    d.ShowDialog();
+                    if (d.BoxDialogResult == WND_DialogBox.BoxDialogResults.Yes)
+                    {
+                        ((Window)sender).Close();
+                    }
+                });
             }
         }
         public ICommand WindowMaximize

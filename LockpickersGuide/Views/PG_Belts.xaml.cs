@@ -179,7 +179,7 @@ namespace LockpickersGuide.Views
                 return;
             }
 
-            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, $"Are you sure you want to delete Belt \"{((Belt)this.DGV_Main.SelectedItem).Name}\"?", MahApps.Metro.IconPacks.PackIconMaterialDesignKind.Delete)
+            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, $"Are you sure you want to delete Belt \"{((Belt)this.DGV_Main.SelectedItem).Name}\"?", MaterialDesignThemes.Wpf.PackIconKind.Cross)
             {
                 Owner = Window.GetWindow(this)
             };

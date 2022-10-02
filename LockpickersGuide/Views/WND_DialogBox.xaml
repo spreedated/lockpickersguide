@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:c="clr-namespace:LockpickersGuide.ViewLogic"
         xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=local:WND_DialogBox}"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="WND_DialogBox" Height="95" MinWidth="320" d:Height="160" WindowStartupLocation="CenterOwner" MouseDown="Window_MouseDown" Style="{StaticResource WindowStyle}">
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <iconPacks:PackIconMaterialDesign Width="48" Height="48" Kind="{Binding DialogIcon}" Visibility="{Binding DialogIconVisibility}" Margin="0,0,10,0"/>
+            <materialDesign:PackIcon Width="48" Height="48" Kind="{Binding DialogIcon}" Visibility="{Binding DialogIconVisibility}" Margin="0,0,10,0"/>
                 <Label x:Name="LBL_DialogText" Content="{Binding DialogText}" VerticalContentAlignment="Center" d:Content="Are you sure you want to exit?" Margin="0,0,10,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding YesNoDialog}">

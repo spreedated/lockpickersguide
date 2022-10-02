@@ -39,7 +39,7 @@ namespace LockpickersGuide.ViewLogic
 
         private void Window_LocationChanged(object sender, System.EventArgs e)
         {
-            if (this.IsModal)
+            if (this.IsModal && this.Owner != null)
             {
                 this.Owner.Left = (this.Left + (this.Width / 2)) - (this.Owner.Width / 2);
                 this.Owner.Top = (this.Top + (this.Height / 2)) - (this.Owner.Height / 2);

@@ -30,7 +30,7 @@ namespace LockpickersGuide.Models
         public Core Core { get; set; }
         public string Description { get; set; }
         public int Keycount { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public bool Ownership { get; set; }
         public bool Guttable { get; set; }
 

@@ -30,7 +30,7 @@ namespace LockpickersGuide.Views
             Brands.Insert(0, new Brand() { Name = "All" });
             Brands.Insert(1, new Brand() { Name = "---" });
 
-            CollectionLocks = new(Database.GetCollectionLocks());
+            //CollectionLocks = new(Database.GetCollectionLocks());
         }
 
         private void CMB_Brands_SelectionChanged(object sender, SelectionChangedEventArgs e)

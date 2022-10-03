@@ -9,11 +9,26 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace LockpickersGuide.ViewModels
 {
     public class PG_LocksViewModel : ViewModelBase, IFilter
     {
+        private IEnumerable<FilterOption> _FilterResults;
+        public IEnumerable<FilterOption> FilterResults
+        {
+            get
+            {
+                return this._FilterResults;
+            }
+            set
+            {
+                this._FilterResults = value;
+                base.OnPropertyChanged(nameof(this.FilterResults));
+            }
+        }
+
         private bool _FilterEnabled;
         public bool FilterEnabled
         {
@@ -28,8 +43,31 @@ namespace LockpickersGuide.ViewModels
             }
         }
 
-        public ObservableCollection<Belt> ComboboxLocks { get; internal set; }
-        public ObservableCollection<Belt> Locks { get; internal set; }
-        public ObservableCollection<Belt> DatagridLocks { get; internal set; }
+        public ObservableCollection<Lock> Locks { get; private set; } = new();
+
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new RelayCommand((sender) =>
+                {
+                    this.Locks.Clear();
+
+                    if (this.FilterResults.IsSet() && this.FilterResults.Any())
+                    {
+                        foreach (Lock cl in Database.GetLocks(this.FilterResults))
+                        {
+                            this.Locks.Add(cl);
+                        }
+                        return;
+                    }
+
+                    foreach (Lock cl in Database.GetLocks())
+                    {
+                        this.Locks.Add(cl);
+                    }
+                });
+            }
+        }
     }
 }

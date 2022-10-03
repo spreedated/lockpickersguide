@@ -16,10 +16,10 @@
         <Grid Margin="0,0,0,0" Width="auto">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Label Content="Search:" Margin="10,0,20,0" Height="24" />
-                <TextBox x:Name="TXT_Searchtext" Width="193" Foreground="WhiteSmoke" materialDesign:HintAssist.Hint="Searchtext" Height="24" Margin="0,0,10,0" KeyDown="TXT_Searchbox_OnKeyDownHandler" TextChanged="TXT_Searchbox_TextChanged"/>
+                <TextBox x:Name="TXT_Searchtext" Width="193" Foreground="WhiteSmoke" materialDesign:HintAssist.Hint="Searchtext" Height="24" Margin="0,0,10,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Height="32" Width="auto">
-                <Button Content="Search" Width="75" Margin="0,0,10,0" Click="BTN_Search_Click" />
+                <Button Content="Search" Width="75" Margin="0,0,10,0" Command="{Binding SearchCommand}"/>
                 <Button Content="Reset" Width="75" Margin="0,0,0,0" Click="BTN_Reset_Click">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatDarkBgButton}">
@@ -81,7 +81,7 @@
             </StackPanel>
         </Grid>
         <Grid Width="auto" Margin="0,90,0,32" d:LayoutOverrides="Height" >
-            <DataGrid x:Name="DGV_Main" Height="auto" Width="auto" ItemsSource="{Binding DatagridLocks}" SelectionMode="Single" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid x:Name="DGV_Main" Height="auto" Width="auto" ItemsSource="{Binding Locks}" SelectionMode="Single" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
                         <Setter Property="BorderThickness" Value="0"/>
@@ -89,7 +89,29 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="DatabaseId" Visibility="Collapsed" Binding="{Binding DatabaseId}" />
+                    <!--<DataGridTextColumn Header="DatabaseId" Binding="{Binding DatabaseId}" />
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type.Name}" />
+                    <DataGridTextColumn Header="Brand" Binding="{Binding Brand.Name}" />
+                    <DataGridTextColumn Header="Modelname" Binding="{Binding Modelname}" />
+                    <DataGridTextColumn Header="Model" Binding="{Binding Model}" />
+                    <DataGridTextColumn Header="Binding Order" Binding="{Binding BindingOrder}" />
+                    <DataGridTextColumn Header="Picked" Binding="{Binding Picked}" />
+                    <DataGridTextColumn Header="Core" Binding="{Binding Core.Name}" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Keycount" Binding="{Binding Keycount}" />
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price, Converter={c:PriceToStringConverter Currency=€}}" />
+                    <DataGridTextColumn Header="Ownership" Binding="{Binding Ownership}" />
+                    <DataGridTextColumn Header="Guttable" Binding="{Binding Guttable}" />-->
+                    <DataGridTextColumn Header="DatabaseId" Binding="{Binding DatabaseId}" Visibility="Collapsed" />
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type.Name}" />
+                    <DataGridTextColumn Header="Brand" Binding="{Binding Brand.Name}" />
+                    <DataGridTextColumn Header="Modelname" Binding="{Binding Modelname}" />
+                    <DataGridTextColumn Header="Model" Binding="{Binding Model}" />
+                    <DataGridTextColumn Header="Core" Binding="{Binding Core.Name}" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="120" />
+                    <DataGridTextColumn Header="Keycount" Binding="{Binding Keycount}" />
+                    <DataGridTextColumn Header="Gutable" Binding="{Binding Gutable}" />
+                    <DataGridTextColumn Header="Link" Binding="{Binding Link}"  Width="120" />
                     <DataGridTemplateColumn Header="Image" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -97,18 +119,25 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Belt Color" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Color" Binding="{Binding Color.Name}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
         <Label x:Name="LBL_Rowcount" Width="auto" Height="32" HorizontalAlignment="Left" d:Content="7/10 Showing" Margin="0,0,0,0" ContentStringFormat="" VerticalAlignment="Bottom">
             <Label.Content>
                 <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ItemsSource.Count,ElementName=DGV_Main}" Value="0">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="{}Showing {0}/{1} Locks from database">
+                        <MultiBinding StringFormat="{}Showing {0} Locks from database">
                             <Binding ElementName="DGV_Main" Path="Items.Count" Mode="OneWay" />
-                            <Binding Path="Locks.Count" Mode="OneWay" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>

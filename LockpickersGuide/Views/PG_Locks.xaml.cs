@@ -20,6 +20,7 @@ using static LockpickersGuide.Logic.Constants;
 using MaterialDesignThemes.Wpf;
 using LockpickersGuide.ViewModels;
 using LockpickersGuide.ViewLogic;
+using System.Reflection;
 
 namespace LockpickersGuide.Views
 {
@@ -28,13 +29,6 @@ namespace LockpickersGuide.Views
     /// </summary>
     public partial class PG_Locks : LockpickerPage
     {
-        private bool FilterApplied
-        {
-            get
-            {
-                return this.filterWindow.IsSet() && this.filterWindow.FilterResults.Any();
-            }
-        }
         public PG_Locks()
         {
             InitializeComponent();
@@ -84,36 +78,17 @@ namespace LockpickersGuide.Views
             //this.CMB_Sortby.SelectedIndex = -1;
         }
 
-        private void BTN_Search_Click(object sender, RoutedEventArgs e)
-        {
-            //this.DatagridLocks = new(ObjectStorage.Locks.Where(x=>x.Name.ToLower().Contains(TXT_Searchtext.Text.ToLower()) || x.Description.ToLower().Contains(TXT_Searchtext.Text.ToLower())));
-            //OnPropertyChanged(nameof(this.DatagridLocks));
-        }
-
-        private void TXT_Searchbox_OnKeyDownHandler(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                this.BTN_Search_Click(this, null);
-            }
-        }
-
-        private void TXT_Searchbox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (((TextBox)sender).Text.Length <= 0)
-            {
-                this.BTN_Reset_Click(this, null);
-            }
-        }
-
         private void BTN_Add_Click(object sender, RoutedEventArgs e)
         {
-            Belt b = new();
+            Lock l = new();
 
-            CrudEdit c = new(b, new string[] { "databaseid" })
+            CrudEdit c = new(l, new string[] { "databaseid" })
             {
                 Owner = Window.GetWindow(this)
             };
+
+            c.ShowDialog();
+
             //if ((bool)c.ShowDialog())
             //{
             //    b = (Belt)c.Object;
@@ -181,35 +156,26 @@ namespace LockpickersGuide.Views
                 return;
             }
 
-            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, $"Are you sure you want to delete Belt \"{((Belt)this.DGV_Main.SelectedItem).Name}\"?", PackIconKind.Delete)
+            string windowContent = "Are you sure you want to delete this item?";
+
+            PropertyInfo s = this.DGV_Main.SelectedItem.GetType().GetProperty("Name");
+
+            if (s.IsSet())
+            {
+                windowContent = $"Are you sure you want to delete \"{s.GetValue(this.DGV_Main.SelectedItem)}\" this item?";
+            }
+
+            WND_DialogBox w = new(WND_DialogBox.DialogStyles.YesNo, windowContent, PackIconKind.Delete)
             {
                 Owner = Window.GetWindow(this)
             };
+
             w.ShowDialog();
 
             if (w.BoxDialogResult == WND_DialogBox.BoxDialogResults.No)
             {
                 return;
             }
-
-            //Belt b = (Belt)this.DGV_Main.SelectedItem;
-            //b.Delete();
-
-            //Logic.Options.Instance.ForceDatabaseReload = true;
-            //ObjectStorage.Locks.Clear();
-            //Logic.Preload.FillObjectStorage<Belt>(ref ObjectStorage.Locks, () => Database.GetLocks(), CACHE_Locks);
-            //Logic.Options.Instance.ForceDatabaseReload = false;
-
-            //this.Locks = new(ObjectStorage.Locks);
-            //OnPropertyChanged(nameof(this.Locks));
-
-            //this.DatagridLocks = new(ObjectStorage.Locks);
-            //OnPropertyChanged(nameof(this.DatagridLocks));
-
-            //this.ComboboxLocks = new(ObjectStorage.Locks);
-            //this.ComboboxLocks.Insert(0, new() { Name = "Select Belt" });
-            //this.ComboboxLocks.Insert(1, new() { Name = "---" });
-            //OnPropertyChanged(nameof(this.ComboboxLocks));
         }
 
         private OV_Filter filterWindow = null;
@@ -227,28 +193,33 @@ namespace LockpickersGuide.Views
                 {
                     Name = "Brand",
                     Kind = FilterOption.Kinds.Combobox,
-                    ComboboxItems = ObjectStorage.Brands.ToArray()
+                    ComboboxItems = ObjectStorage.Brands.ToArray(),
+                    Type = typeof(Brand)
                 },
                 new FilterOption()
                 {
                     Name = "Core",
                     Kind = FilterOption.Kinds.Combobox,
-                    ComboboxItems = ObjectStorage.Cores.ToArray()
+                    ComboboxItems = ObjectStorage.Cores.ToArray(),
+                    Type = typeof(Core)
                 },
                 new FilterOption()
                 {
                     Name = "Picked",
-                    Kind = FilterOption.Kinds.Bool
+                    Kind = FilterOption.Kinds.Bool,
+                    Type = typeof(bool)
                 },
                 new FilterOption()
                 {
                     Name = "Owned",
-                    Kind = FilterOption.Kinds.Bool
+                    Kind = FilterOption.Kinds.Bool,
+                    Type = typeof(bool)
                 },
                 new FilterOption()
                 {
                     Name = "Model",
-                    Kind = FilterOption.Kinds.Text
+                    Kind = FilterOption.Kinds.Text,
+                    Type = typeof(string)
                 }
             };
 
@@ -258,6 +229,8 @@ namespace LockpickersGuide.Views
             }
 
             this.filterWindow.ShowDialog();
+            ((PG_LocksViewModel)this.DataContext).FilterResults = this.filterWindow.FilterResults;
+
 
             //MainWindow.ViewModelInstance.GreyOut = false;
 

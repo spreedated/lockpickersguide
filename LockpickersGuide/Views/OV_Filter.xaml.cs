@@ -27,7 +27,8 @@ namespace LockpickersGuide.Views
     /// </summary>
     public partial class OV_Filter : AdvancedWindow
     {
-        public Dictionary<string, object> FilterResults { get; } = new();
+        public IEnumerable<FilterOption> FilterResults { get; }
+
         private Page callingPage;
         public OV_Filter(string windowName, Window window = null, Page page = null, IEnumerable<FilterOption> filterOptions = null)
         {
@@ -105,13 +106,6 @@ namespace LockpickersGuide.Views
             if (this.callingPage.IsSet() && this.callingPage.DataContext is IFilter)
             {
                 ((IFilter)this.callingPage.DataContext).FilterEnabled = this.PNL_Elements.Children.OfType<UIElement>().Any(x => x.Visibility == Visibility.Visible);
-            }
-
-            this.FilterResults.Clear();
-
-            foreach (UC_FilterOption f in this.PNL_Elements.Children.OfType<UC_FilterOption>().Where(x => x.Visibility == Visibility.Visible))
-            {
-                this.FilterResults.Add(f.Name, f.Result);
             }
         }
     }

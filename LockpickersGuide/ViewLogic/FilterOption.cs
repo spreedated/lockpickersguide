@@ -19,5 +19,6 @@ namespace LockpickersGuide.ViewLogic
         }
         public object Value { get; set; }
         public object[] ComboboxItems { get; set; }
+        public Type Type { get; set; }
     }
 }

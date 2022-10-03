@@ -18,28 +18,28 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static LockpickersGuide.Logic.Constants;
 using MaterialDesignThemes.Wpf;
+using LockpickersGuide.ViewModels;
+using LockpickersGuide.ViewLogic;
 
 namespace LockpickersGuide.Views
 {
     /// <summary>
     /// Interaction logic for PG_Locks.xaml
     /// </summary>
-    public partial class PG_Locks : LockpickerPage, INotifyPropertyChanged
+    public partial class PG_Locks : LockpickerPage
     {
-        public ObservableCollection<Belt> ComboboxLocks { get; internal set; }
-        public ObservableCollection<Belt> Locks { get; internal set; }
-        public ObservableCollection<Belt> DatagridLocks { get; internal set; }
+        private bool FilterApplied
+        {
+            get
+            {
+                return this.filterWindow.IsSet() && this.filterWindow.FilterResults.Any();
+            }
+        }
         public PG_Locks()
         {
             InitializeComponent();
-            base.DataContext = this;
+            base.DataContext = new PG_LocksViewModel();
             base.Pagename = "Locks";
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -212,6 +212,7 @@ namespace LockpickersGuide.Views
             //OnPropertyChanged(nameof(this.ComboboxLocks));
         }
 
+        private OV_Filter filterWindow = null;
         private void BTN_Filter_Click(object sender, RoutedEventArgs e)
         {
             //this.MainOpac = 0.1f;
@@ -220,7 +221,43 @@ namespace LockpickersGuide.Views
             //MainWindow.Instance.Opac = 0.1f;
             //MainWindow.ViewModelInstance.GreyOut = true;
 
-            new OV_Filter("Filters", Window.GetWindow(this)).ShowDialog();
+            FilterOption[] filterOptions =
+            {
+                new FilterOption()
+                {
+                    Name = "Brand",
+                    Kind = FilterOption.Kinds.Combobox,
+                    ComboboxItems = ObjectStorage.Brands.ToArray()
+                },
+                new FilterOption()
+                {
+                    Name = "Core",
+                    Kind = FilterOption.Kinds.Combobox,
+                    ComboboxItems = ObjectStorage.Cores.ToArray()
+                },
+                new FilterOption()
+                {
+                    Name = "Picked",
+                    Kind = FilterOption.Kinds.Bool
+                },
+                new FilterOption()
+                {
+                    Name = "Owned",
+                    Kind = FilterOption.Kinds.Bool
+                },
+                new FilterOption()
+                {
+                    Name = "Model",
+                    Kind = FilterOption.Kinds.Text
+                }
+            };
+
+            if (!this.filterWindow.IsSet())
+            {
+                this.filterWindow = new OV_Filter("Additional filters", Window.GetWindow(this), this, filterOptions);
+            }
+
+            this.filterWindow.ShowDialog();
 
             //MainWindow.ViewModelInstance.GreyOut = false;
 

@@ -1,5 +1,8 @@
-﻿using LockpickersGuide.ViewLogic;
+﻿using LockpickersGuide.Logic;
+using MaterialDesignThemes.Wpf;
+using LockpickersGuide.ViewLogic;
 using LockpickersGuide.ViewModels;
+using LockpickersGuide.Views.Elements;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LockpickersGuide.Views.UC;
 
 namespace LockpickersGuide.Views
 {
@@ -23,7 +27,9 @@ namespace LockpickersGuide.Views
     /// </summary>
     public partial class OV_Filter : AdvancedWindow
     {
-        public OV_Filter(string windowName, Window window = null)
+        public Dictionary<string, object> FilterResults { get; } = new();
+        private Page callingPage;
+        public OV_Filter(string windowName, Window window = null, Page page = null, IEnumerable<FilterOption> filterOptions = null)
         {
             InitializeComponent();
             this.DataContext = new OV_FilterViewModel()
@@ -31,6 +37,48 @@ namespace LockpickersGuide.Views
                 WindowTitle = windowName
             };
             this.Owner = window;
+            this.callingPage = page;
+
+            foreach (FilterOption f in filterOptions)
+            {
+                this.WRP_Buttons.Children.Add(new PictureButton()
+                {
+                    ButtonText = f.Name,
+                    IconKind = PackIconKind.PlusBold,
+                    Command = GenerateFilterButtonCommand(f)
+                });
+            }
+        }
+
+        private ICommand GenerateFilterButtonCommand(FilterOption f)
+        {
+            return new RelayCommand((sender) =>
+            {
+                if (this.PNL_Elements.Children.OfType<UserControl>().Any(x => x.Name == f.Name))
+                {
+                    this.PNL_Elements.Children.OfType<UC_FilterOption>().FirstOrDefault(x => x.Name == f.Name).Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.PNL_Elements.Children.Add(new UC_FilterOption()
+                    {
+                        Name = f.Name,
+                        Labeltext = f.Name,
+                        FilterKind = f.Kind,
+                        Command = new RelayCommand((sender) =>
+                        {
+                            this.WRP_Buttons.Children.OfType<PictureButton>().FirstOrDefault(x => x.ButtonText == f.Name).Visibility = Visibility.Visible;
+                            if (this.PNL_Elements.Children.OfType<UC_FilterOption>().Any(x => x.Name == f.Name))
+                            {
+                                this.PNL_Elements.Children.OfType<UC_FilterOption>().FirstOrDefault(x => x.Name == f.Name).Visibility = Visibility.Collapsed;
+                            }
+                        }),
+                        ComboboxItemSource = f.ComboboxItems
+                    });
+                }
+
+                this.WRP_Buttons.Children.OfType<PictureButton>().FirstOrDefault(x => x.ButtonText == f.Name).Visibility = Visibility.Collapsed;
+            });
         }
 
         internal void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -41,9 +89,30 @@ namespace LockpickersGuide.Views
             }
         }
 
+        private void BTN_Apply_Click(object sender, RoutedEventArgs e)
+        {
+            this.CheckFilterApplication();
+        }
+
         private void BTN_Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.CheckFilterApplication();
+            this.Hide();
+        }
+
+        private void CheckFilterApplication()
+        {
+            if (this.callingPage.IsSet() && this.callingPage.DataContext is IFilter)
+            {
+                ((IFilter)this.callingPage.DataContext).FilterEnabled = this.PNL_Elements.Children.OfType<UIElement>().Any(x => x.Visibility == Visibility.Visible);
+            }
+
+            this.FilterResults.Clear();
+
+            foreach (UC_FilterOption f in this.PNL_Elements.Children.OfType<UC_FilterOption>().Where(x => x.Visibility == Visibility.Visible))
+            {
+                this.FilterResults.Add(f.Name, f.Result);
+            }
         }
     }
 }

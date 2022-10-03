@@ -1,4 +1,5 @@
 ﻿using LockpickersGuide.Logic;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -6,12 +7,29 @@ namespace LockpickersGuide.ViewLogic
 {
     public class AdvancedWindow : Window
     {
+        public event EventHandler<RoutedEventArgs> OnShow;
+        public event EventHandler<CancelEventArgs> OnHide;
+
         public bool IsModal { get; private set; }
         public new bool? ShowDialog()
         {
-            this.IsModal = true;
-            this.ConfigureModal();
+            if (!this.IsLoaded)
+            {
+                this.IsModal = true;
+                this.ConfigureModal();
+            }
+            else
+            {
+                this.OnShow?.Invoke(this, new RoutedEventArgs());
+            }
+
             return base.ShowDialog();
+        }
+
+        public new void Hide()
+        {
+            this.OnHide?.Invoke(this, new CancelEventArgs());
+            base.Hide();
         }
 
         private void ConfigureModal()
@@ -19,7 +37,9 @@ namespace LockpickersGuide.ViewLogic
             this.ShowInTaskbar = false;
             this.LocationChanged += this.Window_LocationChanged;
             this.Loaded += this.Window_Loaded;
+            this.OnShow += this.Window_Loaded;
             this.Closing += this.Window_Closing;
+            this.OnHide += this.Window_Closing;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

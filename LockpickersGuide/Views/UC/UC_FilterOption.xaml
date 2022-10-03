@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="LockpickersGuide.Views.UC.UC_FilterOption"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LockpickersGuide.Views.UC"
+             xmlns:vl="clr-namespace:LockpickersGuide.ViewLogic"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="me">
+    <StackPanel Orientation="Horizontal">
+        <Button Margin="0,10,10,0" Command="{Binding Command,ElementName=me}" CommandParameter="{Binding CommandParameter, ElementName=me}">
+            <Button.Content>
+                <Grid>
+                    <materialDesign:PackIcon  Kind="Cancel" Height="24" Width="24" Margin="-10,0,-10,0"/>
+                </Grid>
+            </Button.Content>
+        </Button>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="60"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{Binding Labeltext, ElementName=me, Converter={vl:UC_FilterOptionLabeltextConverter}}" Height="24" Margin="0,0,10,0" Grid.Column="0" />
+
+            <ComboBox ItemsSource="{Binding ComboboxItemSource, ElementName=me}" DisplayMemberPath="Name" SelectedItem="{Binding Result,ElementName=me}" MinWidth="200" Height="24" Visibility="{Binding FilterKind, ElementName=me, Converter={vl:UC_FilterOptionFilterKindConverter ElementKind=Combobox}}" Grid.Column="1"/>
+            <TextBox Text="{Binding Result,ElementName=me}" Width="200" Height="24" Visibility="{Binding FilterKind, ElementName=me, Converter={vl:UC_FilterOptionFilterKindConverter ElementKind=Text}}" Grid.Column="1"/>
+            <CheckBox Command="{Binding CheckBoxSet, ElementName=me}" Height="24" Visibility="{Binding FilterKind, ElementName=me, Converter={vl:UC_FilterOptionFilterKindConverter ElementKind=Bool}}" Grid.Column="1"/>
+            <DatePicker SelectedDate="{Binding Result,ElementName=me}" MinWidth="200" Height="24" Visibility="{Binding FilterKind, ElementName=me, Converter={vl:UC_FilterOptionFilterKindConverter ElementKind=Date}}" Grid.Column="1"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

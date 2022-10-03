@@ -3,9 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=local:PG_Locks}"
+      xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=vm:PG_LocksViewModel}"
       xmlns:localm="clr-namespace:LockpickersGuide.PresentiationModels"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:vm="clr-namespace:LockpickersGuide.ViewModels"
+      xmlns:c="clr-namespace:LockpickersGuide.ViewLogic"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PG_Locks" Loaded="Page_Loaded">
@@ -17,17 +19,7 @@
                 <TextBox x:Name="TXT_Searchtext" Width="193" Foreground="WhiteSmoke" materialDesign:HintAssist.Hint="Searchtext" Height="24" Margin="0,0,10,0" KeyDown="TXT_Searchbox_OnKeyDownHandler" TextChanged="TXT_Searchbox_TextChanged"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Height="32" Width="auto">
-                <Button Content="Search" Width="75" Margin="0,0,10,0" Click="BTN_Search_Click">
-                    <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatDarkBgButton}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text.Length,ElementName=TXT_Searchtext}" Value="0">
-                                    <Setter Property="IsEnabled" Value="False" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                <Button Content="Search" Width="75" Margin="0,0,10,0" Click="BTN_Search_Click" />
                 <Button Content="Reset" Width="75" Margin="0,0,0,0" Click="BTN_Reset_Click">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatDarkBgButton}">
@@ -52,8 +44,8 @@
                 <Button Margin="10,0,20,0" Click="BTN_Filter_Click">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon  Kind="FilterOff" Height="24" Width="24" Margin="-5,0,0,0"/>
-                            <TextBlock Text="Filter" Margin="5,2,0,0"/>
+                            <materialDesign:PackIcon  Kind="{Binding FilterEnabled, Converter={c:FilterConverter}}" Height="24" Width="24" Margin="-5,0,0,0"/>
+                            <TextBlock Text="{Binding FilterEnabled, Converter={c:FilterConverter IsText=True}}" Margin="5,2,0,0"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>

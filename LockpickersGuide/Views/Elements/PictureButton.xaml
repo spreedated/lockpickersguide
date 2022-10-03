@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="LockpickersGuide.Views.Elements.PictureButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LockpickersGuide.Views.Elements"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="me">
+    <Grid>
+        <Button Margin="0,10,10,0" Command="{Binding Command, ElementName=me}" CommandParameter="{Binding CommandParameter, ElementName=me}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon  Kind="{Binding IconKind, ElementName=me}" Height="24" Width="24" Margin="-10,0,5,0"/>
+                    <TextBlock Text="{Binding ButtonText, ElementName=me}" Margin="0,1,0,0"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+    </Grid>
+</UserControl>

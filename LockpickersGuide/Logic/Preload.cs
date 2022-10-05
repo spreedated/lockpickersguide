@@ -1,4 +1,6 @@
-﻿using LockpickersGuide.Datastructure;
+﻿#define PRELOAD
+
+using LockpickersGuide.Datastructure;
 using LockpickersGuide.EventArgs;
 using LockpickersGuide.Models;
 using Newtonsoft.Json;
@@ -27,7 +29,7 @@ namespace LockpickersGuide.Logic
 
             Options.Initialize();
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
-            //Options.Instance.ForceDatabaseReload = true;
+            
             if (!AreDatabaseCredentialsValid())
             {
                 return false;
@@ -35,6 +37,7 @@ namespace LockpickersGuide.Logic
 
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
+#if PRELOAD
             CheckRedisAvailablity();
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
 
@@ -58,6 +61,7 @@ namespace LockpickersGuide.Logic
 
             FillObjectStorage<Bodywidth>(ref ObjectStorage.Bodywidths, () => GetBodywidths(), CACHE_BODYWIDTHS);
             PreloadStep?.Invoke(null, System.EventArgs.Empty);
+#endif
 
             s.Stop();
 

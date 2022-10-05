@@ -72,12 +72,19 @@ namespace LockpickersGuide.ViewModels
             {
                 return new RelayCommand((sender) =>
                 {
-                    WND_DialogBox d = new(WND_DialogBox.DialogStyles.YesNo, "Are you sure you want to exit?", PackIconKind.Cross)
+                    MahApps.Metro.IconPacks.PackIconVaadinIconsKind[] ss =
                     {
-                        Owner = (Window)sender,
-                        DialogIconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#550000")
+                        MahApps.Metro.IconPacks.PackIconVaadinIconsKind.Esc,
+                        MahApps.Metro.IconPacks.PackIconVaadinIconsKind.EscA
                     };
+
+                    WND_DialogBox d = new(WND_DialogBox.DialogStyles.YesNo, "Are you sure you want to exit?", MahApps.Metro.IconPacks.PackIconVaadinIconsKind.ExitOutline)
+                    {
+                        Owner = (Window)sender
+                    };
+
                     d.ShowDialog();
+
                     if (d.BoxDialogResult == WND_DialogBox.BoxDialogResults.Yes)
                     {
                         ((Window)sender).Close();

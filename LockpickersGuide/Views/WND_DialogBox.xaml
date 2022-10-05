@@ -6,17 +6,21 @@
         xmlns:c="clr-namespace:LockpickersGuide.ViewLogic"
         xmlns:local="clr-namespace:LockpickersGuide.Views" d:DataContext="{d:DesignInstance Type=local:WND_DialogBox}"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ip="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="WND_DialogBox" Height="95" MinWidth="320" d:Height="160" WindowStartupLocation="CenterOwner" MouseDown="Window_MouseDown" Style="{StaticResource WindowStyle}">
         <StackPanel Orientation="Vertical" Margin="10,10,10,10">
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-            <Border CornerRadius="10" Background="{StaticResource MaterialDesignTextFieldBoxBackground}" Margin="0,0,10,0" Visibility="{Binding DialogIconVisibility}">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" Direction="-45" RenderingBias="Quality" ShadowDepth="1" />
-                </Border.Effect>
-                <materialDesign:PackIcon Width="48" Height="48" Kind="{Binding DialogIcon}" Foreground="{Binding DialogIconForeground}"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <Border Padding="0,0,5,0">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.Effect>
+                        <DropShadowEffect BlurRadius="10" Direction="-45" RenderingBias="Quality" ShadowDepth="1" />
+                    </StackPanel.Effect>
+                    <materialDesign:PackIcon Width="48" Height="48" Kind="{Binding DialogIconMaterial}" Foreground="{Binding DialogIconForeground}" Visibility="{Binding DialogIconMaterialVisibility}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <ip:PackIconVaadinIcons Width="48" Height="48" Kind="{Binding DialogIconVaadin}" Foreground="{Binding DialogIconForeground}" Visibility="{Binding DialogIconVaadinVisibility}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
             </Border>
-                <Label x:Name="LBL_DialogText" Content="{Binding DialogText}" VerticalContentAlignment="Center" d:Content="Are you sure you want to exit?" Margin="0,0,10,0" />
+            <Label x:Name="LBL_DialogText" Content="{Binding DialogText}" VerticalContentAlignment="Center" d:Content="Are you sure you want to exit?" Margin="0,0,10,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding YesNoDialog}">
                 <Button Content="Yes" Margin="0,0,10,0" Click="BTN_Pressed"/>

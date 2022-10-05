@@ -55,15 +55,15 @@
                 <ColumnDefinition Width="190" />
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="5,10,0,0" CornerRadius="10" Background="#111111" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2" Grid.Column="0">
-                <StackPanel>
-                    <Button MaxWidth="120" Content="Locks" Margin="0,10,0,10" Click="BTN_Locks_Click"/>
-                    <Button MaxWidth="120" Content="Brands" Margin="0,0,0,10" Click="BTN_Brand_Click"/>
-                    <Button MaxWidth="120" Content="Cores" Margin="0,0,0,10" IsEnabled="False"/>
-                    <Button MaxWidth="120" Content="Countries" Margin="0,0,0,10" IsEnabled="False"/>
-                    <Button MaxWidth="120" Content="Locktypes" Margin="0,0,0,10" IsEnabled="False"/>
-                    <Button MaxWidth="160" Content="Lock Collection" Margin="0,0,0,10" IsEnabled="True" Click="BTN_CollectionLocks_Click"/>
-                    <Button MaxWidth="120" Content="Belts" Margin="0,0,0,10" IsEnabled="True" Click="BTN_Belts_Click"/>
+            <Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="10,10,0,0" CornerRadius="0,10,10,0" Background="#111111" BorderBrush="{DynamicResource SecondaryHueMidBrush}" BorderThickness="2" Grid.Column="0">
+                <StackPanel MaxWidth="140">
+                    <Button Content="Locks" Margin="0,10,0,10" Click="BTN_Locks_Click"/>
+                    <Button Content="Brands" Margin="0,0,0,10" Click="BTN_Brand_Click"/>
+                    <Button Content="Cores" Margin="0,0,0,10" IsEnabled="False"/>
+                    <Button Content="Countries" Margin="0,0,0,10" IsEnabled="False"/>
+                    <Button Content="Locktypes" Margin="0,0,0,10" IsEnabled="False"/>
+                    <Button Content="Lock Collection" Margin="0,0,0,10" IsEnabled="True" Click="BTN_CollectionLocks_Click"/>
+                    <Button Content="Belts" Margin="0,0,0,10" IsEnabled="True" Click="BTN_Belts_Click"/>
                 </StackPanel>
             </Border>
             <Frame x:Name="FRM_Main" Width="auto" Height="auto" Margin="10,10,10,10" NavigationUIVisibility="Hidden" Grid.Column="1" />
